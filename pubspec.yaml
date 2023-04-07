@@ -1,0 +1,41 @@
+name: saiyo_pets
+description: A Pet Adoption app.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.18.5 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  equatable: ^2.0.5
+  dartz: ^0.10.1
+  json_annotation: ^4.8.0
+  dio: ^5.0.3
+  flutter_bloc: ^8.1.2
+  eva_icons_flutter: ^3.1.0
+  get_it: ^7.2.0
+  injectable: ^2.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  json_serializable: ^6.6.1
+  build_runner: ^2.3.3
+  injectable_generator: ^2.1.5
+
+flutter:
+  uses-material-design: true
+
+  # Enable generation of localized Strings from arb files.
+  generate: true
+
+  assets:
+    - assets/images/
