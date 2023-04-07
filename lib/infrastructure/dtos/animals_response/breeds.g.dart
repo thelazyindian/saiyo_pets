@@ -8,7 +8,7 @@ part of 'breeds.dart';
 
 Breeds _$BreedsFromJson(Map<String, dynamic> json) => Breeds(
       primary: json['primary'] as String?,
-      secondary: json['secondary'],
+      secondary: json['secondary'] as String?,
       mixed: json['mixed'] as bool?,
       unknown: json['unknown'] as bool?,
     );

@@ -8,8 +8,8 @@ part of 'colors.dart';
 
 Colors _$ColorsFromJson(Map<String, dynamic> json) => Colors(
       primary: json['primary'] as String?,
-      secondary: json['secondary'],
-      tertiary: json['tertiary'],
+      secondary: json['secondary'] as String?,
+      tertiary: json['tertiary'] as String?,
     );
 
 Map<String, dynamic> _$ColorsToJson(Colors instance) => <String, dynamic>{
