@@ -12,7 +12,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   final GetAnimalsUseCase getAnimals;
 
-  void started() async {
+  Future<void> started() async {
     emit(state.copyWith(hasError: false, isLoading: true));
     final animalsOption = await getAnimals(GetAnimalsParams(
       page: 1,
@@ -25,4 +25,6 @@ class HomeCubit extends Cubit<HomeState> {
     );
     emit(state.copyWith(isLoading: false));
   }
+
+  Future<void> refresh() => started();
 }
