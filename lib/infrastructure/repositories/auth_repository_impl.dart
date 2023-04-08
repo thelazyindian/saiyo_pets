@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 import 'package:saiyo_pets/core/error/exceptions.dart';
 import 'package:saiyo_pets/core/error/failures.dart';
 import 'package:saiyo_pets/domain/entities/oauth/oauth_token.dart';
@@ -6,6 +7,7 @@ import 'package:saiyo_pets/domain/repositories/auth_repository.dart';
 import 'package:saiyo_pets/infrastructure/datasources/auth/local_data_source.dart';
 import 'package:saiyo_pets/infrastructure/datasources/auth/remote_data_source.dart';
 
+@LazySingleton(as: IAuthRepository)
 class AuthRepositoryImpl implements IAuthRepository {
   AuthRepositoryImpl({
     required this.localDataSource,
