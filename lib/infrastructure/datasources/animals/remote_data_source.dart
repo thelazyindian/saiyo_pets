@@ -15,10 +15,12 @@ class RemoteDataSource {
     int? limit,
     String? name,
     String? type,
+    required String accessToken,
   }) async {
     final response = await network.get(
       baseUri: baseUri,
       path: '/animals',
+      headers: {'Authorization': 'Bearer $accessToken'},
       query: {
         if (page != null) 'page': page,
         if (limit != null) 'limit': limit,

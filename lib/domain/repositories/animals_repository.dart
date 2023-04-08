@@ -8,5 +8,6 @@ abstract class IAnimalsRepository {
     int? limit,
     String? name,
     String? type,
+    required String accessToken,
   });
 }

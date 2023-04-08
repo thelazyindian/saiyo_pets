@@ -4,8 +4,8 @@ import 'package:saiyo_pets/core/error/exceptions.dart';
 import 'package:saiyo_pets/core/error/failures.dart';
 import 'package:saiyo_pets/domain/entities/animals/animals_response.dart';
 import 'package:saiyo_pets/domain/repositories/animals_repository.dart';
-import 'package:saiyo_pets/infrastructure/datasources/local_data_source.dart';
-import 'package:saiyo_pets/infrastructure/datasources/remote_data_source.dart';
+import 'package:saiyo_pets/infrastructure/datasources/animals/local_data_source.dart';
+import 'package:saiyo_pets/infrastructure/datasources/animals/remote_data_source.dart';
 
 @LazySingleton(as: IAnimalsRepository)
 class AnimalsRepository implements IAnimalsRepository {
@@ -18,14 +18,13 @@ class AnimalsRepository implements IAnimalsRepository {
 
   final RemoteDataSource remoteDataSource;
 
-  final String baseUri = 'https://api.petfinder.com/v2';
-
   @override
   Future<Either<IFailure, AnimalsResponse>> getAnimals({
     int? page,
     int? limit,
     String? name,
     String? type,
+    required String accessToken,
   }) async {
     return _parseResponse(() async {
       final animalsResDto = await remoteDataSource.getAnimals(
@@ -33,6 +32,7 @@ class AnimalsRepository implements IAnimalsRepository {
         limit: limit,
         name: name,
         type: type,
+        accessToken: accessToken,
       );
       return animalsResDto.toDomain();
     });
