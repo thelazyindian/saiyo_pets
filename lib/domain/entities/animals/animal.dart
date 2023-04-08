@@ -59,6 +59,8 @@ class Animal extends Equatable {
     this.adopter,
   });
 
+  bool get isMale => gender == 'Male';
+
   bool get isAdopted => adopter != null || status == 'adopted';
 
   bool get hasMediumImage =>
@@ -66,7 +68,29 @@ class Animal extends Equatable {
 
   String get getMediumImage => photos?.firstOrNull?.medium ?? '';
 
+  String get getLargeImage => photos?.firstOrNull?.large ?? '';
+
   String get adoptStatus => status == 'adoptable' ? 'Adoptable' : 'Adopted';
+
+  String get cityStateAddress =>
+      (contact?.address?.city != null ? '${contact?.address?.city!}, ' : '') +
+      (contact?.address?.state != null ? '${contact?.address?.state!}, ' : '') +
+      (contact?.address?.country ?? 'Unknown');
+
+  String get ageInYears {
+    switch (age) {
+      case 'Baby':
+        return '0-1 years';
+      case 'Young':
+        return '1-3 years';
+      case 'Adult':
+        return '3-8 years';
+      case 'Senior':
+        return '8+ years';
+      default:
+        return 'Unknown';
+    }
+  }
 
   @override
   List<Object?> get props {

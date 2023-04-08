@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:saiyo_pets/constants/app_strings.dart';
 import 'package:saiyo_pets/constants/colors.dart';
 import 'package:saiyo_pets/presentation/base.dart';
@@ -11,8 +12,9 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: AppStrings.appName,
       theme: ThemeData(
-        textTheme: const TextTheme(
-          titleMedium: TextStyle(
+        textTheme:
+            GoogleFonts.latoTextTheme(Theme.of(context).textTheme).copyWith(
+          titleMedium: const TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.w500,
           ),
@@ -21,6 +23,8 @@ class App extends StatelessWidget {
           brightness: Brightness.light,
           primary: AppColors.primary,
           onPrimary: AppColors.onPrimary,
+          primaryContainer: AppColors.primaryContainer,
+          onPrimaryContainer: AppColors.onPrimaryContainer,
           secondary: AppColors.secondary,
           onSecondary: AppColors.onSecondary,
           secondaryContainer: AppColors.secondaryContainer,
