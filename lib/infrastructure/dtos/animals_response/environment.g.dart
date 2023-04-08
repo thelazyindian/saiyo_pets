@@ -6,13 +6,14 @@ part of 'environment.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Environment _$EnvironmentFromJson(Map<String, dynamic> json) => Environment(
+EnvironmentDto _$EnvironmentDtoFromJson(Map<String, dynamic> json) =>
+    EnvironmentDto(
       children: json['children'] as bool?,
       dogs: json['dogs'] as bool?,
       cats: json['cats'] as bool?,
     );
 
-Map<String, dynamic> _$EnvironmentToJson(Environment instance) =>
+Map<String, dynamic> _$EnvironmentDtoToJson(EnvironmentDto instance) =>
     <String, dynamic>{
       'children': instance.children,
       'dogs': instance.dogs,

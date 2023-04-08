@@ -6,7 +6,7 @@ part of 'animal.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Animal _$AnimalFromJson(Map<String, dynamic> json) => Animal(
+AnimalDto _$AnimalDtoFromJson(Map<String, dynamic> json) => AnimalDto(
       id: json['id'] as int?,
       organizationId: json['organization_id'] as String?,
       url: json['url'] as String?,
@@ -14,10 +14,10 @@ Animal _$AnimalFromJson(Map<String, dynamic> json) => Animal(
       species: json['species'] as String?,
       breeds: json['breeds'] == null
           ? null
-          : Breeds.fromJson(json['breeds'] as Map<String, dynamic>),
+          : BreedsDto.fromJson(json['breeds'] as Map<String, dynamic>),
       colors: json['colors'] == null
           ? null
-          : Colors.fromJson(json['colors'] as Map<String, dynamic>),
+          : ColorsDto.fromJson(json['colors'] as Map<String, dynamic>),
       age: json['age'] as String?,
       gender: json['gender'] as String?,
       size: json['size'] as String?,
@@ -25,22 +25,23 @@ Animal _$AnimalFromJson(Map<String, dynamic> json) => Animal(
       name: json['name'] as String?,
       description: json['description'] as String?,
       photos: (json['photos'] as List<dynamic>?)
-          ?.map((e) => Photo.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => PhotoDto.fromJson(e as Map<String, dynamic>))
           .toList(),
       videos: (json['videos'] as List<dynamic>?)
-          ?.map((e) => Video.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => VideoDto.fromJson(e as Map<String, dynamic>))
           .toList(),
       status: json['status'] as String?,
       attributes: json['attributes'] == null
           ? null
-          : Attributes.fromJson(json['attributes'] as Map<String, dynamic>),
+          : AttributesDto.fromJson(json['attributes'] as Map<String, dynamic>),
       environment: json['environment'] == null
           ? null
-          : Environment.fromJson(json['environment'] as Map<String, dynamic>),
+          : EnvironmentDto.fromJson(
+              json['environment'] as Map<String, dynamic>),
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
       contact: json['contact'] == null
           ? null
-          : Contact.fromJson(json['contact'] as Map<String, dynamic>),
+          : ContactDto.fromJson(json['contact'] as Map<String, dynamic>),
       publishedAt: json['published_at'] as String?,
       distance: (json['distance'] as num?)?.toDouble(),
       links: json['_links'] == null
@@ -48,7 +49,7 @@ Animal _$AnimalFromJson(Map<String, dynamic> json) => Animal(
           : Links.fromJson(json['_links'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$AnimalToJson(Animal instance) => <String, dynamic>{
+Map<String, dynamic> _$AnimalDtoToJson(AnimalDto instance) => <String, dynamic>{
       'id': instance.id,
       'organization_id': instance.organizationId,
       'url': instance.url,

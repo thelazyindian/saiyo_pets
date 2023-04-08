@@ -1,10 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:saiyo_pets/domain/entities/animals/attributes.dart';
 
 part 'attributes.g.dart';
 
 @JsonSerializable()
-class Attributes extends Equatable {
+class AttributesDto extends Equatable {
   @JsonKey(name: 'spayed_neutered')
   final bool? spayedNeutered;
   @JsonKey(name: 'house_trained')
@@ -15,7 +16,7 @@ class Attributes extends Equatable {
   @JsonKey(name: 'shots_current')
   final bool? shotsCurrent;
 
-  const Attributes({
+  const AttributesDto({
     this.spayedNeutered,
     this.houseTrained,
     this.declawed,
@@ -23,11 +24,21 @@ class Attributes extends Equatable {
     this.shotsCurrent,
   });
 
-  factory Attributes.fromJson(Map<String, dynamic> json) {
-    return _$AttributesFromJson(json);
+  factory AttributesDto.fromJson(Map<String, dynamic> json) {
+    return _$AttributesDtoFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$AttributesToJson(this);
+  Map<String, dynamic> toJson() => _$AttributesDtoToJson(this);
+
+  Attributes toDomain() {
+    return Attributes(
+      spayedNeutered: spayedNeutered,
+      houseTrained: houseTrained,
+      declawed: declawed,
+      specialNeeds: specialNeeds,
+      shotsCurrent: shotsCurrent,
+    );
+  }
 
   @override
   List<Object?> get props {

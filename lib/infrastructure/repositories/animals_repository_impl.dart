@@ -2,15 +2,21 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:saiyo_pets/core/error/exceptions.dart';
 import 'package:saiyo_pets/core/error/failures.dart';
-import 'package:saiyo_pets/core/network/network.dart';
+import 'package:saiyo_pets/domain/entities/animals/animals_response.dart';
 import 'package:saiyo_pets/domain/repositories/animals_repository.dart';
-import 'package:saiyo_pets/infrastructure/dtos/animals_response/animals_response.dart';
+import 'package:saiyo_pets/infrastructure/datasources/local_data_source.dart';
+import 'package:saiyo_pets/infrastructure/datasources/remote_data_source.dart';
 
 @LazySingleton(as: IAnimalsRepository)
 class AnimalsRepository implements IAnimalsRepository {
-  AnimalsRepository({required this.network});
+  AnimalsRepository({
+    required this.localDataSource,
+    required this.remoteDataSource,
+  });
 
-  final INetwork network;
+  final LocalDataSource localDataSource;
+
+  final RemoteDataSource remoteDataSource;
 
   final String baseUri = 'https://api.petfinder.com/v2';
 
@@ -22,17 +28,13 @@ class AnimalsRepository implements IAnimalsRepository {
     String? type,
   }) async {
     return _parseResponse(() async {
-      final response = await network.get(
-        baseUri: baseUri,
-        path: '/animals',
-        query: {
-          if (page != null) 'page': page,
-          if (limit != null) 'limit': limit,
-          if (name != null) 'name': name,
-          if (type != null) 'type': type,
-        },
+      final animalsResDto = await remoteDataSource.getAnimals(
+        page: page,
+        limit: limit,
+        name: name,
+        type: type,
       );
-      return AnimalsResponse.fromJson(response.data);
+      return animalsResDto.toDomain();
     });
   }
 

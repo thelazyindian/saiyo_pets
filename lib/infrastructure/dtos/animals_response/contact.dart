@@ -1,23 +1,32 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:saiyo_pets/domain/entities/animals/contact.dart';
 
 import 'address.dart';
 
 part 'contact.g.dart';
 
 @JsonSerializable()
-class Contact extends Equatable {
+class ContactDto extends Equatable {
   final String? email;
   final String? phone;
-  final Address? address;
+  final AddressDto? address;
 
-  const Contact({this.email, this.phone, this.address});
+  const ContactDto({this.email, this.phone, this.address});
 
-  factory Contact.fromJson(Map<String, dynamic> json) {
-    return _$ContactFromJson(json);
+  factory ContactDto.fromJson(Map<String, dynamic> json) {
+    return _$ContactDtoFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$ContactToJson(this);
+  Map<String, dynamic> toJson() => _$ContactDtoToJson(this);
+
+  Contact toDomain() {
+    return Contact(
+      email: email,
+      phone: phone,
+      address: address?.toDomain(),
+    );
+  }
 
   @override
   List<Object?> get props => [email, phone, address];

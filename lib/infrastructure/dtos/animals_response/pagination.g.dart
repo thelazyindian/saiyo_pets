@@ -6,7 +6,8 @@ part of 'pagination.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Pagination _$PaginationFromJson(Map<String, dynamic> json) => Pagination(
+PaginationDto _$PaginationDtoFromJson(Map<String, dynamic> json) =>
+    PaginationDto(
       countPerPage: json['count_per_page'] as int?,
       totalCount: json['total_count'] as int?,
       currentPage: json['current_page'] as int?,
@@ -16,7 +17,7 @@ Pagination _$PaginationFromJson(Map<String, dynamic> json) => Pagination(
           : Links.fromJson(json['_links'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$PaginationToJson(Pagination instance) =>
+Map<String, dynamic> _$PaginationDtoToJson(PaginationDto instance) =>
     <String, dynamic>{
       'count_per_page': instance.countPerPage,
       'total_count': instance.totalCount,

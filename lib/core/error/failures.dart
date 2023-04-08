@@ -15,6 +15,7 @@ class NetworkFailure extends IFailure {
 
 class InternalFailure extends IFailure {
   Object? error;
+
   InternalFailure(this.error) {
     debugPrint(error.toString());
   }

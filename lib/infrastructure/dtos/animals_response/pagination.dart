@@ -6,7 +6,7 @@ import 'links.dart';
 part 'pagination.g.dart';
 
 @JsonSerializable()
-class Pagination extends Equatable {
+class PaginationDto extends Equatable {
   @JsonKey(name: 'count_per_page')
   final int? countPerPage;
   @JsonKey(name: 'total_count')
@@ -18,7 +18,7 @@ class Pagination extends Equatable {
   @JsonKey(name: '_links')
   final Links? links;
 
-  const Pagination({
+  const PaginationDto({
     this.countPerPage,
     this.totalCount,
     this.currentPage,
@@ -26,11 +26,11 @@ class Pagination extends Equatable {
     this.links,
   });
 
-  factory Pagination.fromJson(Map<String, dynamic> json) {
-    return _$PaginationFromJson(json);
+  factory PaginationDto.fromJson(Map<String, dynamic> json) {
+    return _$PaginationDtoFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$PaginationToJson(this);
+  Map<String, dynamic> toJson() => _$PaginationDtoToJson(this);
 
   @override
   List<Object?> get props {

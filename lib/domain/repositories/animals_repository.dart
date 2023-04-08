@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:saiyo_pets/core/error/failures.dart';
-import 'package:saiyo_pets/infrastructure/dtos/animals_response/animals_response.dart';
+import 'package:saiyo_pets/domain/entities/animals/animals_response.dart';
 
 abstract class IAnimalsRepository {
   Future<Either<IFailure, AnimalsResponse>> getAnimals({

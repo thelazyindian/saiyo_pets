@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:saiyo_pets/core/error/failures.dart';
+import 'package:saiyo_pets/domain/entities/animals/animals_response.dart';
 import 'package:saiyo_pets/domain/repositories/animals_repository.dart';
 import 'package:saiyo_pets/domain/usecases/get_animals.dart';
-import 'package:saiyo_pets/infrastructure/dtos/animals_response/animals_response.dart';
 
 @LazySingleton(as: GetAnimalsUseCase)
 class GetAnimalsUseCaseImpl implements GetAnimalsUseCase {

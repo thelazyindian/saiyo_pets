@@ -6,7 +6,8 @@ part of 'attributes.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Attributes _$AttributesFromJson(Map<String, dynamic> json) => Attributes(
+AttributesDto _$AttributesDtoFromJson(Map<String, dynamic> json) =>
+    AttributesDto(
       spayedNeutered: json['spayed_neutered'] as bool?,
       houseTrained: json['house_trained'] as bool?,
       declawed: json['declawed'] as bool?,
@@ -14,7 +15,7 @@ Attributes _$AttributesFromJson(Map<String, dynamic> json) => Attributes(
       shotsCurrent: json['shots_current'] as bool?,
     );
 
-Map<String, dynamic> _$AttributesToJson(Attributes instance) =>
+Map<String, dynamic> _$AttributesDtoToJson(AttributesDto instance) =>
     <String, dynamic>{
       'spayed_neutered': instance.spayedNeutered,
       'house_trained': instance.houseTrained,

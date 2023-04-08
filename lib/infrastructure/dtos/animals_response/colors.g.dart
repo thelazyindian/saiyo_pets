@@ -6,13 +6,13 @@ part of 'colors.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Colors _$ColorsFromJson(Map<String, dynamic> json) => Colors(
+ColorsDto _$ColorsDtoFromJson(Map<String, dynamic> json) => ColorsDto(
       primary: json['primary'] as String?,
       secondary: json['secondary'] as String?,
       tertiary: json['tertiary'] as String?,
     );
 
-Map<String, dynamic> _$ColorsToJson(Colors instance) => <String, dynamic>{
+Map<String, dynamic> _$ColorsDtoToJson(ColorsDto instance) => <String, dynamic>{
       'primary': instance.primary,
       'secondary': instance.secondary,
       'tertiary': instance.tertiary,

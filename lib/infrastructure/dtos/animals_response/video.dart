@@ -1,17 +1,25 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:saiyo_pets/domain/entities/animals/video.dart';
 
 part 'video.g.dart';
 
 @JsonSerializable()
-class Video extends Equatable {
+class VideoDto extends Equatable {
   final String? embed;
 
-  const Video({this.embed});
+  const VideoDto({this.embed});
 
-  factory Video.fromJson(Map<String, dynamic> json) => _$VideoFromJson(json);
+  factory VideoDto.fromJson(Map<String, dynamic> json) =>
+      _$VideoDtoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$VideoToJson(this);
+  Map<String, dynamic> toJson() => _$VideoDtoToJson(this);
+
+  Video toDomain() {
+    return Video(
+      embed: embed,
+    );
+  }
 
   @override
   List<Object?> get props => [embed];

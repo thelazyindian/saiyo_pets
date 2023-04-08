@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:saiyo_pets/domain/entities/animals/animal.dart';
 
 import 'attributes.dart';
 import 'breeds.dart';
@@ -13,35 +14,35 @@ import 'video.dart';
 part 'animal.g.dart';
 
 @JsonSerializable()
-class Animal extends Equatable {
+class AnimalDto extends Equatable {
   final int? id;
   @JsonKey(name: 'organization_id')
   final String? organizationId;
   final String? url;
   final String? type;
   final String? species;
-  final Breeds? breeds;
-  final Colors? colors;
+  final BreedsDto? breeds;
+  final ColorsDto? colors;
   final String? age;
   final String? gender;
   final String? size;
   final String? coat;
   final String? name;
   final String? description;
-  final List<Photo>? photos;
-  final List<Video>? videos;
+  final List<PhotoDto>? photos;
+  final List<VideoDto>? videos;
   final String? status;
-  final Attributes? attributes;
-  final Environment? environment;
+  final AttributesDto? attributes;
+  final EnvironmentDto? environment;
   final List<String>? tags;
-  final Contact? contact;
+  final ContactDto? contact;
   @JsonKey(name: 'published_at')
   final String? publishedAt;
   final double? distance;
   @JsonKey(name: '_links')
   final Links? links;
 
-  const Animal({
+  const AnimalDto({
     this.id,
     this.organizationId,
     this.url,
@@ -67,11 +68,37 @@ class Animal extends Equatable {
     this.links,
   });
 
-  factory Animal.fromJson(Map<String, dynamic> json) {
-    return _$AnimalFromJson(json);
+  factory AnimalDto.fromJson(Map<String, dynamic> json) {
+    return _$AnimalDtoFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$AnimalToJson(this);
+  Map<String, dynamic> toJson() => _$AnimalDtoToJson(this);
+
+  Animal toDomain() {
+    return Animal(
+      id: id,
+      url: url,
+      type: type,
+      species: species,
+      breeds: breeds?.toDomain(),
+      colors: colors?.toDomain(),
+      age: age,
+      gender: gender,
+      size: size,
+      coat: coat,
+      name: name,
+      description: description,
+      photos: photos?.map((e) => e.toDomain()).toList(),
+      videos: videos?.map((e) => e.toDomain()).toList(),
+      status: status,
+      attributes: attributes?.toDomain(),
+      environment: environment?.toDomain(),
+      tags: tags,
+      contact: contact?.toDomain(),
+      publishedAt: publishedAt,
+      distance: distance,
+    );
+  }
 
   @override
   List<Object?> get props {
