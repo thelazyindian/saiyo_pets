@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:saiyo_pets/domain/entities/animals/adopter.dart';
 
@@ -59,6 +60,13 @@ class Animal extends Equatable {
   });
 
   bool get isAdopted => adopter != null || status == 'adopted';
+
+  bool get hasMediumImage =>
+      photos?.any((photo) => photo.medium != null) ?? false;
+
+  String get getMediumImage => photos?.firstOrNull?.medium ?? '';
+
+  String get adoptStatus => status == 'adoptable' ? 'Adoptable' : 'Adopted';
 
   @override
   List<Object?> get props {

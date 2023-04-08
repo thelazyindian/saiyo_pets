@@ -7,13 +7,13 @@ part of 'oauth_dto.dart';
 // **************************************************************************
 
 OauthDto _$OauthDtoFromJson(Map<String, dynamic> json) => OauthDto(
-      accessToken: json['accessToken'] as String?,
-      tokenType: json['tokenType'] as String?,
-      expiresIn: json['expiresIn'] as int?,
+      accessToken: json['access_token'] as String?,
+      tokenType: json['token_type'] as String?,
+      expiresIn: json['expires_in'] as int?,
     );
 
 Map<String, dynamic> _$OauthDtoToJson(OauthDto instance) => <String, dynamic>{
-      'accessToken': instance.accessToken,
-      'tokenType': instance.tokenType,
-      'expiresIn': instance.expiresIn,
+      'access_token': instance.accessToken,
+      'token_type': instance.tokenType,
+      'expires_in': instance.expiresIn,
     };

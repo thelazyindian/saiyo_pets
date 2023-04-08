@@ -17,7 +17,8 @@ class OauthToken {
     required this.accessToken,
     required this.tokenType,
     required this.expiresIn,
-  }) : createdAt = DateTime.now();
+    required this.createdAt,
+  });
 
   bool get isExpired {
     final expiresAt = createdAt.add(Duration(seconds: expiresIn));

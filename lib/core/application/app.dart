@@ -11,13 +11,14 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: AppStrings.appName,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: Theme.of(context).textTheme.copyWith(
-              headline6: const TextStyle(color: AppColors.onPrimary),
-              subtitle1: const TextStyle(color: AppColors.primary),
-            ),
-        colorScheme: const ColorScheme(
-          brightness: Brightness.dark,
+        textTheme: const TextTheme(
+          titleMedium: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        colorScheme: ColorScheme(
+          brightness: Brightness.light,
           primary: AppColors.primary,
           onPrimary: AppColors.onPrimary,
           secondary: AppColors.secondary,
@@ -29,6 +30,9 @@ class App extends StatelessWidget {
           onBackground: AppColors.onBackground,
           surface: AppColors.background,
           onSurface: AppColors.onBackground,
+          outline: Colors.grey.shade200,
+          tertiary: AppColors.tertiary,
+          onTertiary: AppColors.onTertiary,
         ),
       ),
       home: const BasePage(),

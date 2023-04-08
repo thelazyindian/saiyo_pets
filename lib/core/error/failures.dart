@@ -9,15 +9,23 @@ abstract class IFailure extends Equatable {
 }
 
 class NetworkFailure extends IFailure {
+  Object? error;
+
+  NetworkFailure(this.error) {
+    debugPrint('ERROR: $error');
+  }
+
   @override
   String get message => 'Some network error occurred.';
 }
 
 class InternalFailure extends IFailure {
   Object? error;
+  StackTrace? trace;
 
-  InternalFailure(this.error) {
-    debugPrint(error.toString());
+  InternalFailure(this.error, this.trace) {
+    debugPrint('ERROR: $error');
+    debugPrint('TRACE: $trace');
   }
 
   @override

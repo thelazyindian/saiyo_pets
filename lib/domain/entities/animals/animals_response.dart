@@ -15,4 +15,16 @@ class AnimalsResponse extends Equatable {
 
   @override
   List<Object?> get props => [animals, currentPage, totalPages];
+
+  AnimalsResponse copyWith({
+    List<Animal>? animals,
+    int? currentPage,
+    int? totalPages,
+  }) {
+    return AnimalsResponse(
+      animals: animals ?? this.animals,
+      currentPage: currentPage ?? this.currentPage,
+      totalPages: totalPages ?? this.totalPages,
+    );
+  }
 }

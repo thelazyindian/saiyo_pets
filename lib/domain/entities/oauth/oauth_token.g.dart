@@ -20,6 +20,7 @@ class OauthTokenAdapter extends TypeAdapter<OauthToken> {
       accessToken: fields[0] as String,
       tokenType: fields[1] as String,
       expiresIn: fields[2] as int,
+      createdAt: fields[3] as DateTime,
     );
   }
 

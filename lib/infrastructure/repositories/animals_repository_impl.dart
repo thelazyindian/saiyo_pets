@@ -34,7 +34,11 @@ class AnimalsRepository implements IAnimalsRepository {
         type: type,
         accessToken: accessToken,
       );
-      return animalsResDto.toDomain();
+      final animalsWithPhotos = animalsResDto.animals!
+          .where((element) => element.photos?.isNotEmpty ?? false)
+          .map((e) => e.toDomain())
+          .toList();
+      return animalsResDto.toDomain().copyWith(animals: animalsWithPhotos);
     });
   }
 
@@ -42,10 +46,10 @@ class AnimalsRepository implements IAnimalsRepository {
       Future<AnimalsResponse> Function() response) async {
     try {
       return right(await response());
-    } on NetworkException {
-      return left(NetworkFailure());
-    } catch (e) {
-      return left(InternalFailure(e));
+    } on NetworkException catch (e) {
+      return left(NetworkFailure(e.message));
+    } catch (e, t) {
+      return left(InternalFailure(e, t));
     }
   }
 }

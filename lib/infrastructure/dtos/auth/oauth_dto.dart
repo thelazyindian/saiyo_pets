@@ -6,8 +6,11 @@ part 'oauth_dto.g.dart';
 
 @JsonSerializable()
 class OauthDto extends Equatable {
+  @JsonKey(name: 'access_token')
   final String? accessToken;
+  @JsonKey(name: 'token_type')
   final String? tokenType;
+  @JsonKey(name: 'expires_in')
   final int? expiresIn;
 
   const OauthDto({
@@ -27,6 +30,7 @@ class OauthDto extends Equatable {
       accessToken: accessToken!,
       tokenType: tokenType!,
       expiresIn: expiresIn!,
+      createdAt: DateTime.now().toUtc(),
     );
   }
 

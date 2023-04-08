@@ -37,10 +37,10 @@ class AuthRepositoryImpl implements IAuthRepository {
       Future<OauthToken> Function() response) async {
     try {
       return right(await response());
-    } on NetworkException {
-      return left(NetworkFailure());
-    } catch (e) {
-      return left(InternalFailure(e));
+    } on NetworkException catch (e) {
+      return left(NetworkFailure(e.message));
+    } catch (e, t) {
+      return left(InternalFailure(e, t));
     }
   }
 }

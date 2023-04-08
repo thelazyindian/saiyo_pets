@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saiyo_pets/constants/dimens.dart';
 
 class AppErrorView extends StatelessWidget {
   final String message;
@@ -22,14 +23,17 @@ class AppErrorView extends StatelessWidget {
               color: Theme.of(context).colorScheme.error,
             ),
           ),
-          const SizedBox(height: 8.0),
+          Dimens.h8,
           TextButton(
             onPressed: onRetry,
             style: TextButton.styleFrom(
-              primary: Theme.of(context).colorScheme.onPrimary,
+              foregroundColor: Theme.of(context).colorScheme.onPrimary,
               backgroundColor: Theme.of(context).colorScheme.primary,
             ),
-            child: Text('Retry'),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text('Retry'),
+            ),
           ),
         ],
       ),

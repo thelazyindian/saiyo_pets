@@ -1,7 +1,9 @@
+import 'package:injectable/injectable.dart';
 import 'package:saiyo_pets/config/app/app_config.dart';
 import 'package:saiyo_pets/core/network/network.dart';
 import 'package:saiyo_pets/infrastructure/dtos/auth/oauth_dto.dart';
 
+@lazySingleton
 class RemoteDataSource {
   RemoteDataSource({
     required this.appConfig,

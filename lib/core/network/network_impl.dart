@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:saiyo_pets/core/error/exceptions.dart';
 import 'package:saiyo_pets/core/network/network.dart';
@@ -8,8 +7,7 @@ import 'package:saiyo_pets/core/network/network.dart';
 class NetworkImpl implements INetwork {
   late Dio _dioClient;
 
-  @preResolve
-  void init() {
+  NetworkImpl() {
     _dioClient = Dio();
   }
 
@@ -28,10 +26,8 @@ class NetworkImpl implements INetwork {
       );
       return response;
     } on DioError catch (e) {
-      debugPrint('DioError $e');
       throw NetworkException(e.message);
     } catch (e) {
-      debugPrint('Error $e');
       rethrow;
     }
   }
@@ -53,10 +49,8 @@ class NetworkImpl implements INetwork {
       );
       return response;
     } on DioError catch (e) {
-      debugPrint('DioError $e');
       throw NetworkException(e.message);
     } catch (e) {
-      debugPrint('Error $e');
       rethrow;
     }
   }

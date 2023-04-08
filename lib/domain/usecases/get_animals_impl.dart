@@ -25,6 +25,10 @@ class GetAnimalsUseCaseImpl implements GetAnimalsUseCase {
       (error) => left(error),
       (oauthToken) => animalsRepository.getAnimals(
         accessToken: oauthToken.accessToken,
+        page: params.page,
+        limit: params.limit,
+        name: params.name,
+        type: params.type,
       ),
     );
   }
