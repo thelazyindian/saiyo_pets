@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saiyo_pets/core/di/injectable.dart';
 import 'package:saiyo_pets/presentation/home/cubit/home_cubit.dart';
@@ -26,13 +27,19 @@ class _HomeViewState extends State<HomeView> {
     return BlocBuilder<HomeCubit, HomeState>(
       bloc: getIt<HomeCubit>(),
       builder: (context, state) {
-        return Scaffold(
-          backgroundColor: colorScheme.background,
-          appBar: const HomeAppBar(),
-          body: HomeBody(
-            hasError: state.hasError,
-            isLoading: state.isLoading,
-            animals: state.animals,
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle(
+            statusBarColor: colorScheme.background,
+            systemNavigationBarColor: colorScheme.background,
+          ),
+          child: Scaffold(
+            backgroundColor: colorScheme.background,
+            appBar: const HomeAppBar(),
+            body: HomeBody(
+              hasError: state.hasError,
+              isLoading: state.isLoading,
+              animals: state.animals,
+            ),
           ),
         );
       },

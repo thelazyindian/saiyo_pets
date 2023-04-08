@@ -55,6 +55,10 @@ class DetailsBody extends StatelessWidget {
                 width: double.infinity,
                 child: CachedNetworkImage(
                   imageUrl: largeImage,
+                  fadeInCurve: Curves.linear,
+                  fadeInDuration: Duration.zero,
+                  fadeOutCurve: Curves.linear,
+                  fadeOutDuration: Duration.zero,
                   fit: BoxFit.cover,
                   placeholder: (context, url) => CachedNetworkImage(
                     imageUrl: mediumImage,

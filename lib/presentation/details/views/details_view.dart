@@ -1,46 +1,75 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:saiyo_pets/domain/entities/animals/animal.dart';
 import 'package:saiyo_pets/presentation/details/items/adopt_button.dart';
+import 'package:saiyo_pets/presentation/details/popups/adopted_popup.dart';
 import 'package:saiyo_pets/presentation/details/widgets/details_app_bar.dart';
 import 'package:saiyo_pets/presentation/details/widgets/details_body.dart';
 
-class DetailsView extends StatelessWidget {
-  const DetailsView({super.key, required this.animal});
+class DetailsView extends StatefulWidget {
+  const DetailsView({
+    super.key,
+    required this.animal,
+  });
 
   final Animal animal;
 
+  @override
+  State<DetailsView> createState() => _DetailsViewState();
+}
+
+class _DetailsViewState extends State<DetailsView> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
     final adoptButtonHeight = 80.0;
 
-    return Scaffold(
-      appBar: DetailsAppBar(
-        onFavouriteTap: () {},
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: colorScheme.background,
+        systemNavigationBarColor: colorScheme.primary,
       ),
-      extendBody: true,
-      extendBodyBehindAppBar: true,
-      backgroundColor: colorScheme.background,
-      body: DetailsBody(
-        id: animal.id!.toString(),
-        mediumImage: animal.getMediumImage,
-        largeImage: animal.getLargeImage,
-        name: animal.name ?? 'Unknown',
-        description: animal.description ?? 'No description',
-        price: '\$480',
-        contact: animal.contact?.phone ?? '999-999-9999',
-        addressLineOne: animal.contact?.address?.address1 ?? 'Unknown address',
-        addressLineTwo: animal.cityStateAddress,
-        isMale: animal.isMale,
-        ageInYears: animal.ageInYears,
-        adoptButtonHeight: adoptButtonHeight,
-      ),
-      bottomSheet: SizedBox(
-        width: double.infinity,
-        height: adoptButtonHeight,
-        child: AdoptButton(
-          onTap: () {},
+      child: Scaffold(
+        appBar: DetailsAppBar(
+          onFavouriteTap: () {},
+        ),
+        extendBody: true,
+        extendBodyBehindAppBar: true,
+        backgroundColor: colorScheme.background,
+        body: DetailsBody(
+          id: widget.animal.id!.toString(),
+          mediumImage: widget.animal.getMediumImage,
+          largeImage: widget.animal.getLargeImage,
+          name: widget.animal.name ?? 'Unknown',
+          description: widget.animal.description ?? 'No description',
+          price: '\$480',
+          contact: widget.animal.contact?.phone ?? '999-999-9999',
+          addressLineOne:
+              widget.animal.contact?.address?.address1 ?? 'Unknown address',
+          addressLineTwo: widget.animal.cityStateAddress,
+          isMale: widget.animal.isMale,
+          ageInYears: widget.animal.ageInYears,
+          adoptButtonHeight: adoptButtonHeight,
+        ),
+        bottomSheet: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle(
+            systemNavigationBarColor: colorScheme.primary,
+          ),
+          child: SizedBox(
+            width: double.infinity,
+            height: adoptButtonHeight,
+            child: AdoptButton(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (_) {
+                    return const AdoptedPopup();
+                  },
+                );
+              },
+            ),
+          ),
         ),
       ),
     );
