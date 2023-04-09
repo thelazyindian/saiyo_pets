@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saiyo_pets/presentation/common/views/app_empty_view.dart';
+import 'package:saiyo_pets/presentation/settings/widgets/settings_app_bar.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -9,15 +10,7 @@ class SettingsPage extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text(
-          'Settings',
-          style: Theme.of(context).textTheme.headline6,
-        ),
-        centerTitle: true,
-      ),
+      appBar: const SettingsAppBar(),
       extendBody: true,
       extendBodyBehindAppBar: true,
       backgroundColor: colorScheme.background,
