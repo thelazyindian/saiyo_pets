@@ -8,6 +8,7 @@ import 'package:saiyo_pets/presentation/common/views/app_empty_view.dart';
 import 'package:saiyo_pets/presentation/common/views/app_error_view.dart';
 import 'package:saiyo_pets/presentation/details/details_page.dart';
 import 'package:saiyo_pets/presentation/home/cubit/animals_cubit.dart';
+import 'package:saiyo_pets/presentation/home/cubit/nav_cubit.dart';
 import 'package:saiyo_pets/presentation/home/items/animal_card.dart';
 
 class HomeBody extends StatelessWidget {
@@ -92,11 +93,9 @@ class HomeBody extends StatelessWidget {
                                     name: animals[index].name!,
                                     breeds: animals[index].breeds!.primary!,
                                     onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => DetailsPage(
-                                              animal: animals[index]),
+                                      getIt<NavCubit>().setRoute(
+                                        DetailsPage(
+                                          animal: animals[index],
                                         ),
                                       );
                                     },

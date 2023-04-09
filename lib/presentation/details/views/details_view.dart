@@ -10,6 +10,7 @@ import 'package:saiyo_pets/presentation/details/widgets/details_app_bar.dart';
 import 'package:saiyo_pets/presentation/details/widgets/details_body.dart';
 import 'package:saiyo_pets/presentation/details/widgets/interactive_media_viewer.dart';
 import 'package:saiyo_pets/presentation/home/cubit/animals_cubit.dart';
+import 'package:saiyo_pets/presentation/home/cubit/nav_cubit.dart';
 
 class DetailsView extends StatefulWidget {
   const DetailsView({
@@ -79,12 +80,10 @@ class _DetailsViewState extends State<DetailsView> {
               ageInYears: animal.ageInYears,
               adoptButtonHeight: adoptButtonHeight,
               onImageTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => InteractiveMediaViewer(
-                      id: animal.id!.toString(),
-                      image: animal.getLargeImage,
-                    ),
+                getIt<NavCubit>().setRoute(
+                  InteractiveMediaViewer(
+                    id: animal.id!.toString(),
+                    image: animal.getLargeImage,
                   ),
                 );
               },
