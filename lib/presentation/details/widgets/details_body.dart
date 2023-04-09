@@ -184,7 +184,9 @@ class _DetailsCard extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: Dimens.brc24,
-              color: Colors.white,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? colorScheme.secondary
+                  : colorScheme.background,
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.1),
@@ -221,9 +223,12 @@ class _DetailsCard extends StatelessWidget {
                       SizedBox(
                         height: 24.0,
                         width: 24.0,
-                        child: Image.asset(isMale
-                            ? 'assets/images/male-gender.png'
-                            : 'assets/images/female-gender.png'),
+                        child: Image.asset(
+                          isMale
+                              ? 'assets/images/male-gender.png'
+                              : 'assets/images/female-gender.png',
+                          color: colorScheme.onSecondary,
+                        ),
                       ),
                     ],
                   ),

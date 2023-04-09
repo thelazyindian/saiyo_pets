@@ -31,6 +31,7 @@ class AnimalCard extends StatelessWidget {
       child: Card(
         elevation: 0,
         margin: EdgeInsets.zero,
+        color: Theme.of(context).colorScheme.background,
         shape: RoundedRectangleBorder(
           borderRadius: Dimens.brc16,
           side: BorderSide(
@@ -155,24 +156,30 @@ class _AnimalDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12.0,
-            vertical: 6.0,
-          ),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             borderRadius: Dimens.brc24,
-            color: isAdopted
-                ? colorScheme.primary.withOpacity(0.25)
-                : colorScheme.tertiary,
+            color: Colors.white,
           ),
-          child: Text(
-            adoptStatus,
-            maxLines: 1,
-            style: TextStyle(
-              letterSpacing: 0.5,
-              fontSize: 10.5,
-              fontWeight: FontWeight.w500,
-              color: isAdopted ? colorScheme.primary : colorScheme.onTertiary,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12.0,
+              vertical: 6.0,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: Dimens.brc24,
+              color: isAdopted
+                  ? colorScheme.primary.withOpacity(0.25)
+                  : colorScheme.tertiary,
+            ),
+            child: Text(
+              adoptStatus,
+              maxLines: 1,
+              style: TextStyle(
+                letterSpacing: 0.5,
+                fontSize: 10.5,
+                fontWeight: FontWeight.w500,
+                color: isAdopted ? colorScheme.primary : colorScheme.onTertiary,
+              ),
             ),
           ),
         ),
@@ -180,10 +187,10 @@ class _AnimalDetails extends StatelessWidget {
         Text(
           name,
           maxLines: 1,
-          style: Theme.of(context)
-              .textTheme
-              .titleLarge!
-              .copyWith(fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                fontWeight: FontWeight.bold,
+                color: colorScheme.onPrimaryContainer,
+              ),
         ),
         Dimens.h8,
         Text(

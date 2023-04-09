@@ -69,8 +69,11 @@ class HistoryView extends StatelessWidget {
                   Text(
                     groupAnimalsByTime[index].timeAgo,
                     style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          color: colorScheme.primary.withOpacity(0.35),
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? colorScheme.primary.withOpacity(0.65)
+                              : colorScheme.primary.withOpacity(0.35),
                           fontWeight: FontWeight.w600,
+                          fontSize: 15.0,
                         ),
                   ),
                   Dimens.h16,
@@ -115,7 +118,9 @@ class HistoryView extends StatelessWidget {
                 padding: const EdgeInsets.all(4.0),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: colorScheme.background,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? colorScheme.secondary
+                      : colorScheme.background,
                   boxShadow: [
                     BoxShadow(
                       color: colorScheme.primary.withOpacity(0.2),

@@ -47,9 +47,16 @@ class AnimalsCubit extends Cubit<AnimalsState> {
     _debouncer = Timer(const Duration(milliseconds: 500), () {
       currentPage = 1;
 
-      emit(state.copyWith(hasError: false, isLoading: true));
+      if (state.query.isNotEmpty && query.isEmpty) {
+        emit(state.copyWith(hasError: false, isLoading: true));
 
-      _fetchData(name: query.isEmpty ? null : query);
+        _fetchData(name: null);
+      } else if (query.isNotEmpty) {
+        emit(state.copyWith(hasError: false, isLoading: true));
+
+        _fetchData(name: query);
+      }
+      emit(state.copyWith(query: query));
     });
   }
 
@@ -145,7 +152,7 @@ class AnimalsCubit extends Cubit<AnimalsState> {
 
           emit(state.copyWith(
             animals: animals,
-            adoptedAnimals: [...state.adoptedAnimals, animal],
+            adoptedAnimals: [...state.adoptedAnimals, adoptedAnimal],
             adoptFailureOrSuccess: optionOf(right(animal.name ?? 'A Cute Pet')),
           ));
         },

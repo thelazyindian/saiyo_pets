@@ -1,7 +1,9 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:saiyo_pets/constants/dimens.dart';
 import 'package:saiyo_pets/core/di/injectable.dart';
 import 'package:saiyo_pets/presentation/history/history_page.dart';
 import 'package:saiyo_pets/presentation/home/cubit/nav_cubit.dart';
@@ -41,47 +43,61 @@ class _BasePageState extends State<BasePage> {
         );
       },
       builder: (context, navState) {
-        return PersistentTabView(
-          context,
-          controller: _controller,
-          screens: const [
-            HomePage(),
-            HistoryPage(),
-            LikedPage(),
-            SettingsPage(),
-          ],
-          items: _navBarsItems(),
-          hideNavigationBar: navState.hideNavigationBar,
-          confineInSafeArea: true,
-          backgroundColor: colorScheme.background,
-          handleAndroidBackButtonPress: true,
-          resizeToAvoidBottomInset: false,
-          stateManagement: true,
-          hideNavigationBarWhenKeyboardShows: true,
-          decoration: NavBarDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            colorBehindNavBar: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.2),
-                spreadRadius: 1,
-                blurRadius: 10,
-                offset: const Offset(0, 3),
-              ),
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle(
+            systemNavigationBarColor: colorScheme.background,
+          ),
+          child: PersistentTabView(
+            context,
+            controller: _controller,
+            screens: const [
+              HomePage(),
+              HistoryPage(),
+              LikedPage(),
+              SettingsPage(),
             ],
+            items: _navBarsItems(),
+            hideNavigationBar: navState.hideNavigationBar,
+            confineInSafeArea: true,
+            backgroundColor: colorScheme.background,
+            handleAndroidBackButtonPress: true,
+            resizeToAvoidBottomInset: false,
+            stateManagement: true,
+            hideNavigationBarWhenKeyboardShows: true,
+            decoration: NavBarDecoration(
+              borderRadius: const BorderRadius.only(
+                topLeft: Dimens.rc16,
+                topRight: Dimens.rc16,
+              ),
+              border: Theme.of(context).brightness == Brightness.dark
+                  ? Border.all(
+                      color: colorScheme.secondary,
+                      width: 1.5,
+                    )
+                  : null,
+              colorBehindNavBar: colorScheme.background,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 10,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            popAllScreensOnTapOfSelectedTab: true,
+            popActionScreens: PopActionScreensType.all,
+            itemAnimationProperties: const ItemAnimationProperties(
+              duration: Duration(milliseconds: 200),
+              curve: Curves.ease,
+            ),
+            screenTransitionAnimation: const ScreenTransitionAnimation(
+              animateTabTransition: true,
+              curve: Curves.ease,
+              duration: Duration(milliseconds: 200),
+            ),
+            navBarStyle: NavBarStyle.style12,
           ),
-          popAllScreensOnTapOfSelectedTab: true,
-          popActionScreens: PopActionScreensType.all,
-          itemAnimationProperties: const ItemAnimationProperties(
-            duration: Duration(milliseconds: 200),
-            curve: Curves.ease,
-          ),
-          screenTransitionAnimation: const ScreenTransitionAnimation(
-            animateTabTransition: true,
-            curve: Curves.ease,
-            duration: Duration(milliseconds: 200),
-          ),
-          navBarStyle: NavBarStyle.style12,
         );
       },
     );

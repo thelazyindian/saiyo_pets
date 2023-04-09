@@ -30,27 +30,22 @@ class _HomeViewState extends State<HomeView> {
     return BlocBuilder<AnimalsCubit, AnimalsState>(
       bloc: getIt<AnimalsCubit>(),
       builder: (context, state) {
-        return AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle.dark.copyWith(
-            systemNavigationBarColor: colorScheme.background,
+        return Scaffold(
+          backgroundColor: colorScheme.background,
+          appBar: HomeAppBar(
+            controller: _searchController,
+            onSearch: (value) {
+              getIt<AnimalsCubit>().search(value);
+            },
+            onSearchCancel: () {
+              getIt<AnimalsCubit>().cancelSearch();
+            },
           ),
-          child: Scaffold(
-            backgroundColor: colorScheme.background,
-            appBar: HomeAppBar(
-              controller: _searchController,
-              onSearch: (value) {
-                getIt<AnimalsCubit>().search(value);
-              },
-              onSearchCancel: () {
-                getIt<AnimalsCubit>().cancelSearch();
-              },
-            ),
-            body: HomeBody(
-              hasMore: state.hasMore,
-              hasError: state.hasError,
-              isLoading: state.isLoading,
-              animals: state.animals,
-            ),
+          body: HomeBody(
+            hasMore: state.hasMore,
+            hasError: state.hasError,
+            isLoading: state.isLoading,
+            animals: state.animals,
           ),
         );
       },

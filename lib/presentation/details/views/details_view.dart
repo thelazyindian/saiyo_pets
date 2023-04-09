@@ -90,11 +90,14 @@ class _DetailsViewState extends State<DetailsView> {
             ),
             bottomSheet: AnnotatedRegion<SystemUiOverlayStyle>(
               value: SystemUiOverlayStyle(
-                systemNavigationBarColor: colorScheme.primary,
+                systemNavigationBarColor: animal.isAdopted
+                    ? colorScheme.secondary
+                    : colorScheme.primary,
               ),
-              child: SizedBox(
+              child: Container(
                 width: double.infinity,
                 height: adoptButtonHeight,
+                color: colorScheme.background,
                 child: AdoptButton(
                   onTap: () {
                     getIt<AnimalsCubit>().adoptAnimal(animal: animal);

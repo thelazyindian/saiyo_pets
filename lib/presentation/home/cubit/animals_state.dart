@@ -8,6 +8,7 @@ class AnimalsState extends Equatable {
     this.hasMore = true,
     this.animals = const [],
     this.adoptedAnimals = const [],
+    this.query = '',
     required this.adoptFailureOrSuccess,
   });
 
@@ -17,6 +18,7 @@ class AnimalsState extends Equatable {
   final bool hasMore;
   final List<Animal> animals;
   final List<Animal> adoptedAnimals;
+  final String query;
   final Option<Either<IFailure, String>> adoptFailureOrSuccess;
 
   factory AnimalsState.initial() => AnimalsState(adoptFailureOrSuccess: none());
@@ -29,6 +31,7 @@ class AnimalsState extends Equatable {
         hasMore,
         animals,
         adoptedAnimals,
+        query,
         adoptFailureOrSuccess,
       ];
 
@@ -39,6 +42,7 @@ class AnimalsState extends Equatable {
     bool? hasMore,
     List<Animal>? animals,
     List<Animal>? adoptedAnimals,
+    String? query,
     Option<Either<IFailure, String>>? adoptFailureOrSuccess,
   }) {
     return AnimalsState(
@@ -48,6 +52,7 @@ class AnimalsState extends Equatable {
       hasMore: hasMore ?? this.hasMore,
       animals: animals ?? this.animals,
       adoptedAnimals: adoptedAnimals ?? this.adoptedAnimals,
+      query: query ?? this.query,
       adoptFailureOrSuccess:
           adoptFailureOrSuccess ?? this.adoptFailureOrSuccess,
     );

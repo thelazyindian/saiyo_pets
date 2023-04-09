@@ -16,4 +16,18 @@ class AppColors {
   static const Color onError = Color(0xFFFFFFFF);
   static const Color tertiary = Color.fromARGB(255, 255, 216, 194);
   static const Color onTertiary = Color.fromARGB(255, 228, 92, 24);
+
+  static const Color backgroundDark = Color(0xFF000000);
+  static Color onBackgroundDark = Colors.grey.shade400;
+  static const Color primaryDark = Color.fromARGB(255, 120, 61, 197);
+  static const Color primaryContainerDark = Color(0xFF000000);
+  static const Color onPrimaryContainerDark = Color(0xFFFFFFFF);
+  static const Color onPrimaryDark = Color(0xFF000000);
+  static const Color secondaryDark = Color(0xFF161219);
+  static const Color secondaryContainerDark = Color(0xFF4E4B82);
+  static const Color onSecondaryDark = Color.fromARGB(255, 156, 156, 156);
+  static const Color errorDark = Color.fromARGB(255, 206, 52, 52);
+  static const Color onErrorDark = Color(0xFFFFFFFF);
+  static const Color tertiaryDark = Color.fromARGB(255, 255, 216, 194);
+  static const Color onTertiaryDark = Color.fromARGB(255, 228, 92, 24);
 }

@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:saiyo_pets/constants/dimens.dart';
 import 'package:saiyo_pets/presentation/settings/widgets/settings_app_bar.dart';
@@ -15,10 +16,20 @@ class SettingsPage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          const _SettingsTile(
+          _SettingsTile(
             child: ListTile(
-              title: Text('Dark Mode'),
-              trailing: Switch(value: true, onChanged: null),
+              title: const Text('Dark Mode'),
+              trailing: Switch(
+                value: AdaptiveTheme.of(context).brightness == Brightness.dark,
+                onChanged: (value) {
+                  if (value) {
+                    AdaptiveTheme.of(context).setDark();
+                  } else {
+                    AdaptiveTheme.of(context).setLight();
+                  }
+                  // AdaptiveTheme.of(context).persist();
+                },
+              ),
             ),
           ),
           const _SettingsTile(
