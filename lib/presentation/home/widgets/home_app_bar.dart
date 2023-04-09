@@ -1,9 +1,19 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:saiyo_pets/constants/dimens.dart';
+import 'package:saiyo_pets/presentation/common/widgets/msg_bar.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const HomeAppBar({super.key});
+  const HomeAppBar({
+    super.key,
+    required this.controller,
+    required this.onSearch,
+    required this.onSearchCancel,
+  });
+
+  final TextEditingController controller;
+  final void Function(String) onSearch;
+  final VoidCallback onSearchCancel;
 
   @override
   Size get preferredSize => const Size.fromHeight(60.0);
@@ -18,7 +28,11 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Row(
         children: [
           Expanded(
-            child: _SearchBar(),
+            child: _SearchBar(
+              controller: controller,
+              onSearch: onSearch,
+              onSearchCancel: onSearchCancel,
+            ),
           ),
           Dimens.w8,
           _SearchPreferencesButton(),
@@ -28,8 +42,36 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-class _SearchBar extends StatelessWidget {
-  const _SearchBar({super.key});
+class _SearchBar extends StatefulWidget {
+  const _SearchBar({
+    super.key,
+    required this.controller,
+    required this.onSearch,
+    required this.onSearchCancel,
+  });
+
+  final TextEditingController controller;
+  final void Function(String) onSearch;
+  final VoidCallback onSearchCancel;
+
+  @override
+  State<_SearchBar> createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<_SearchBar> {
+  late String _searchText;
+
+  @override
+  void initState() {
+    _searchText = '';
+    widget.controller.addListener(() {
+      setState(() {
+        _searchText = widget.controller.text;
+      });
+      widget.onSearch(widget.controller.text);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,18 +92,35 @@ class _SearchBar extends StatelessWidget {
           Dimens.w8,
           Expanded(
             child: TextField(
+              controller: widget.controller,
+              // onChanged: (value) {
+              //   setState(() {
+              //     _searchText = value;
+              //   });
+              //   widget.onSearch(value);
+              // },
               cursorColor: colorScheme.primary,
               style: TextStyle(
                 color: colorScheme.onSecondary,
               ),
               decoration: InputDecoration(
-                  hintText: 'Find your lovely pet',
-                  border: InputBorder.none,
-                  hintStyle: TextStyle(
-                    color: colorScheme.onSecondary,
-                  )),
+                hintText: 'Find your lovely pet',
+                border: InputBorder.none,
+                hintStyle: TextStyle(
+                  color: colorScheme.onSecondary,
+                ),
+              ),
             ),
           ),
+          if (_searchText.isNotEmpty)
+            IconButton(
+              onPressed: () {
+                widget.controller.clear();
+                widget.onSearchCancel();
+              },
+              icon: const Icon(Icons.close_rounded),
+              color: colorScheme.onSecondary,
+            ),
           Dimens.w16,
         ],
       ),
@@ -77,7 +136,9 @@ class _SearchPreferencesButton extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return IconButton(
-      onPressed: () {},
+      onPressed: () {
+        context.showMsgBar('Coming soon...');
+      },
       icon: const Icon(
         EvaIcons.options2Outline,
       ),

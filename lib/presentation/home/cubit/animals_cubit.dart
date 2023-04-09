@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:dartz/dartz.dart';
@@ -39,12 +40,32 @@ class AnimalsCubit extends Cubit<AnimalsState> {
 
   Future<void> loadMore() => _fetchData(loadMore: true);
 
+  Timer? _debouncer;
+
+  void search(String query) {
+    _debouncer?.cancel();
+    _debouncer = Timer(const Duration(milliseconds: 500), () {
+      currentPage = 1;
+
+      emit(state.copyWith(hasError: false, isLoading: true));
+
+      _fetchData(name: query.isEmpty ? null : query);
+    });
+  }
+
+  void cancelSearch() {
+    _debouncer?.cancel();
+    started();
+  }
+
   Future<void> _fetchData({
+    String? name,
     bool loadMore = false,
   }) async {
     final animalsOption = await getAnimals(GetAnimalsParams(
       page: loadMore ? currentPage + 1 : currentPage,
       limit: 50,
+      name: name,
     ));
 
     final adoptedAnimalsOption = await getAdoptedAnimals(NoParams());
@@ -72,7 +93,9 @@ class AnimalsCubit extends Cubit<AnimalsState> {
             if (index != -1) {
               animals[index] = adopted;
             } else {
-              animals.insert(0, adopted);
+              if (name == null) {
+                animals.insert(0, adopted);
+              }
             }
           }
         });

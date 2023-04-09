@@ -1,4 +1,3 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:saiyo_pets/constants/dimens.dart';
 
@@ -7,7 +6,7 @@ class AppEmptyView extends StatelessWidget {
 
   const AppEmptyView({
     super.key,
-    this.message = 'Nothing here.',
+    this.message = 'No results found!',
   });
 
   @override
@@ -15,16 +14,23 @@ class AppEmptyView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            EvaIcons.slashOutline,
-            size: 100.0,
+          SizedBox(
+            height: 100.0,
+            width: 100.0,
+            child: Image.asset(
+              'assets/images/no-results.png',
+              color: Theme.of(context).colorScheme.onBackground,
+            ),
           ),
-          Dimens.h8,
+          Dimens.h16,
           Text(
             message,
             style: TextStyle(
-              color: Theme.of(context).colorScheme.error,
+              fontSize: 22.0,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
             ),
           ),
         ],

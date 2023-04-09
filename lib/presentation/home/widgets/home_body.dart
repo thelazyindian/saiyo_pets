@@ -39,7 +39,7 @@ class HomeBody extends StatelessWidget {
     }
 
     if (animals.isEmpty) {
-      return const AppEmptyView();
+      return const Center(child: AppEmptyView());
     }
 
     return AnimationLimiter(

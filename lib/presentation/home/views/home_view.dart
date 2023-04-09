@@ -14,8 +14,11 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  late TextEditingController _searchController;
+
   @override
   void initState() {
+    _searchController = TextEditingController();
     getIt<AnimalsCubit>().started();
     super.initState();
   }
@@ -34,7 +37,15 @@ class _HomeViewState extends State<HomeView> {
           ),
           child: Scaffold(
             backgroundColor: colorScheme.background,
-            appBar: const HomeAppBar(),
+            appBar: HomeAppBar(
+              controller: _searchController,
+              onSearch: (value) {
+                getIt<AnimalsCubit>().search(value);
+              },
+              onSearchCancel: () {
+                getIt<AnimalsCubit>().cancelSearch();
+              },
+            ),
             body: HomeBody(
               hasMore: state.hasMore,
               hasError: state.hasError,

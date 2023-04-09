@@ -1,5 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:saiyo_pets/presentation/common/widgets/msg_bar.dart';
 
 class FavouriteIcon extends StatelessWidget {
   const FavouriteIcon({
@@ -21,7 +22,9 @@ class FavouriteIcon extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       child: IconButton(
-        onPressed: onTap,
+        onPressed: () {
+          context.showMsgBar('Coming soon...');
+        },
         padding: const EdgeInsets.all(0.0),
         iconSize: iconSize,
         color: colorScheme.onSecondary,
