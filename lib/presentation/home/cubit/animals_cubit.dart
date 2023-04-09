@@ -29,7 +29,7 @@ class AnimalsCubit extends Cubit<AnimalsState> {
 
   final SetAdoptedAnimalsUseCase setAdoptedAnimals;
 
-  int currentPage = 1;
+  int currentPage = 500;
 
   Future<void> started() async {
     emit(state.copyWith(hasError: false, isLoading: true));
@@ -55,7 +55,7 @@ class AnimalsCubit extends Cubit<AnimalsState> {
 
   void cancelSearch() {
     _debouncer?.cancel();
-    currentPage = 1;
+    currentPage = 500;
     started();
   }
 
@@ -78,7 +78,7 @@ class AnimalsCubit extends Cubit<AnimalsState> {
         }
       },
       (animalsResponse) {
-        currentPage = animalsResponse.currentPage ?? 0;
+        currentPage = animalsResponse.currentPage ?? 1;
 
         final List<Animal> animals = loadMore
             ? [
@@ -103,8 +103,8 @@ class AnimalsCubit extends Cubit<AnimalsState> {
 
         emit(state.copyWith(
           hasError: false,
-          hasMore: (animalsResponse.currentPage ?? 0) <
-              (animalsResponse.totalPages ?? 0),
+          hasMore: (animalsResponse.currentPage ?? 1) <
+              (animalsResponse.totalPages ?? 1),
           animals: animals,
           adoptedAnimals: adoptedAnimalsOption.getOrElse(() => []),
         ));
