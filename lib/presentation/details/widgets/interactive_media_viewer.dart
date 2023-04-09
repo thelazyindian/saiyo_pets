@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:interactiveviewer_gallery/interactiveviewer_gallery.dart';
+import 'package:photo_view/photo_view.dart';
 
 class InteractiveMediaViewer extends StatelessWidget {
   const InteractiveMediaViewer({
@@ -16,18 +16,17 @@ class InteractiveMediaViewer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        InteractiveviewerGallery(
-          sources: [image],
-          initIndex: 0,
-          itemBuilder: (_, index, __) {
-            return Hero(
-              tag: id,
-              child: CachedNetworkImage(
-                imageUrl: image,
+        Center(
+          child: Hero(
+            tag: id,
+            child: PhotoView(
+              imageProvider: CachedNetworkImageProvider(
+                image,
               ),
-            );
-          },
-          onPageChanged: (pageIndex) {},
+              minScale: 0.5,
+              maxScale: 5.0,
+            ),
+          ),
         ),
         Positioned(
           left: 8.0,
