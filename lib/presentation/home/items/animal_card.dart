@@ -43,12 +43,12 @@ class AnimalCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: _AnimalImage(id: id, image: image),
+              child: AnimalImage(id: id, image: image),
             ),
             Dimens.h16,
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: _AnimalDetails(
+              child: AnimalDetails(
                 isAdopted: isAdopted,
                 adoptStatus: adoptStatus,
                 name: name,
@@ -63,8 +63,8 @@ class AnimalCard extends StatelessWidget {
   }
 }
 
-class _AnimalImage extends StatelessWidget {
-  const _AnimalImage({
+class AnimalImage extends StatelessWidget {
+  const AnimalImage({
     super.key,
     required this.id,
     required this.image,
@@ -134,8 +134,8 @@ class _AnimalImage extends StatelessWidget {
   }
 }
 
-class _AnimalDetails extends StatelessWidget {
-  const _AnimalDetails({
+class AnimalDetails extends StatelessWidget {
+  const AnimalDetails({
     super.key,
     required this.isAdopted,
     required this.adoptStatus,
