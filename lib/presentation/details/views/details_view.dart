@@ -8,6 +8,7 @@ import 'package:saiyo_pets/presentation/details/items/adopt_button.dart';
 import 'package:saiyo_pets/presentation/details/popups/adopted_popup.dart';
 import 'package:saiyo_pets/presentation/details/widgets/details_app_bar.dart';
 import 'package:saiyo_pets/presentation/details/widgets/details_body.dart';
+import 'package:saiyo_pets/presentation/details/widgets/interactive_media_viewer.dart';
 import 'package:saiyo_pets/presentation/home/cubit/animals_cubit.dart';
 
 class DetailsView extends StatefulWidget {
@@ -77,6 +78,16 @@ class _DetailsViewState extends State<DetailsView> {
               isMale: animal.isMale,
               ageInYears: animal.ageInYears,
               adoptButtonHeight: adoptButtonHeight,
+              onImageTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => InteractiveMediaViewer(
+                      id: animal.id!.toString(),
+                      image: animal.getLargeImage,
+                    ),
+                  ),
+                );
+              },
             ),
             bottomSheet: AnnotatedRegion<SystemUiOverlayStyle>(
               value: SystemUiOverlayStyle(

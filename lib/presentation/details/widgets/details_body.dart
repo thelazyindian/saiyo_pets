@@ -19,6 +19,7 @@ class DetailsBody extends StatelessWidget {
     required this.isMale,
     required this.ageInYears,
     required this.adoptButtonHeight,
+    required this.onImageTap,
   });
 
   final String id;
@@ -33,6 +34,7 @@ class DetailsBody extends StatelessWidget {
   final bool isMale;
   final String ageInYears;
   final double adoptButtonHeight;
+  final VoidCallback onImageTap;
 
   @override
   Widget build(BuildContext context) {
@@ -53,16 +55,19 @@ class DetailsBody extends StatelessWidget {
               child: SizedBox(
                 height: imageHeight,
                 width: double.infinity,
-                child: CachedNetworkImage(
-                  imageUrl: largeImage,
-                  fadeInCurve: Curves.linear,
-                  fadeInDuration: Duration.zero,
-                  fadeOutCurve: Curves.linear,
-                  fadeOutDuration: Duration.zero,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) => CachedNetworkImage(
-                    imageUrl: mediumImage,
+                child: GestureDetector(
+                  onTap: onImageTap,
+                  child: CachedNetworkImage(
+                    imageUrl: largeImage,
+                    fadeInCurve: Curves.linear,
+                    fadeInDuration: Duration.zero,
+                    fadeOutCurve: Curves.linear,
+                    fadeOutDuration: Duration.zero,
                     fit: BoxFit.cover,
+                    placeholder: (context, url) => CachedNetworkImage(
+                      imageUrl: mediumImage,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
