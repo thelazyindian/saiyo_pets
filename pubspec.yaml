@@ -33,6 +33,7 @@ dependencies:
   confetti: ^0.7.0
   photo_view: ^0.14.0
   persistent_bottom_nav_bar: ^5.0.2
+  timeago: ^3.3.0
 
 dev_dependencies:
   flutter_test:

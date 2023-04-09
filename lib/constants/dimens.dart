@@ -22,6 +22,7 @@ class Dimens {
 
   static const h4 = SizedBox(height: 4.0);
   static const h8 = SizedBox(height: 8.0);
+  static const h12 = SizedBox(height: 12.0);
   static const h16 = SizedBox(height: 16.0);
   static const h24 = SizedBox(height: 24.0);
   static const h32 = SizedBox(height: 32.0);

@@ -106,6 +106,7 @@ class AnimalsCubit extends Cubit<AnimalsState> {
           hasMore: (animalsResponse.currentPage ?? 0) <
               (animalsResponse.totalPages ?? 0),
           animals: animals,
+          adoptedAnimals: adoptedAnimalsOption.getOrElse(() => []),
         ));
       },
     );
@@ -125,7 +126,7 @@ class AnimalsCubit extends Cubit<AnimalsState> {
             'Arya Stark',
             'Sansa Stark'
           ][Random().nextInt(4)],
-          adoptedAt: DateTime.now().toString(),
+          adoptedAt: DateTime.now().toUtc().toString(),
         ),
       );
       final result = await setAdoptedAnimals(SetAdoptedAnimalsParams(
