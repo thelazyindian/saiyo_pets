@@ -39,16 +39,17 @@ class AnimalsRepository implements IAnimalsRepository {
         accessToken: accessToken,
       );
 
-      final animalsWithPhotos = animalsResDto.animals!
-          .where((element) => element.photos?.isNotEmpty ?? false)
-          .toList();
-      localDataSource.setAnimals(animals: animalsWithPhotos);
+      return animalsResDto.toDomain();
+      // final animalsWithPhotos = animalsResDto.animals!
+      //     .where((element) => element.photos?.isNotEmpty ?? false)
+      //     .toList();
+      // localDataSource.setAnimals(animals: animalsWithPhotos);
 
-      final animalsWithPhotosDomain =
-          animalsWithPhotos.map((e) => e.toDomain()).toList();
-      return animalsResDto
-          .toDomain()
-          .copyWith(animals: animalsWithPhotosDomain);
+      // final animalsWithPhotosDomain =
+      //     animalsWithPhotos.map((e) => e.toDomain()).toList();
+      // return animalsResDto
+      //     .toDomain()
+      //     .copyWith(animals: animalsWithPhotosDomain);
     });
   }
 

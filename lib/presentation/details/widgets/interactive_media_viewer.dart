@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:saiyo_pets/presentation/details/widgets/details_body.dart';
 
 class InteractiveMediaViewer extends StatelessWidget {
   const InteractiveMediaViewer({
@@ -17,15 +18,14 @@ class InteractiveMediaViewer extends StatelessWidget {
     return Stack(
       children: [
         Center(
-          child: Hero(
-            tag: id,
-            child: PhotoView(
-              imageProvider: CachedNetworkImageProvider(
-                image,
-              ),
-              minScale: 0.5,
-              maxScale: 5.0,
+          child: PhotoView(
+            errorBuilder: (context, error, stackTrace) =>
+                const ImageErrorView(),
+            imageProvider: CachedNetworkImageProvider(
+              image,
             ),
+            minScale: 0.5,
+            maxScale: 5.0,
           ),
         ),
         Positioned(

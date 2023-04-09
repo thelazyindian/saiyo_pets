@@ -15,36 +15,39 @@ class DetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: AnimationConfiguration.synchronized(
-        duration: const Duration(milliseconds: 475),
-        child: SlideAnimation(
-          horizontalOffset: 50.0,
-          child: FadeInAnimation(
+    return Padding(
+      padding: EdgeInsets.only(
+        top: MediaQuery.of(context).viewPadding.top + 8.0,
+        bottom: 8.0,
+        left: 16.0,
+        right: 16.0,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          AnimationConfiguration.synchronized(
             duration: const Duration(milliseconds: 475),
-            child: Container(
-              margin: const EdgeInsets.only(left: 8.0),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: colorScheme.background,
-              ),
-              child: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(EvaIcons.arrowBackOutline),
-                color: colorScheme.onSecondary,
+            child: SlideAnimation(
+              horizontalOffset: 50.0,
+              child: FadeInAnimation(
+                duration: const Duration(milliseconds: 475),
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: colorScheme.background,
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(EvaIcons.arrowBackOutline),
+                    color: colorScheme.onSecondary,
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: AnimationConfiguration.synchronized(
+          AnimationConfiguration.synchronized(
             duration: const Duration(milliseconds: 475),
             child: SlideAnimation(
               horizontalOffset: 50.0,
@@ -56,9 +59,9 @@ class DetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

@@ -16,16 +16,18 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onSearchCancel;
 
   @override
-  Size get preferredSize => const Size.fromHeight(60.0);
+  Size get preferredSize => const Size.fromHeight(80.0);
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return AppBar(
-      backgroundColor: colorScheme.background,
-      elevation: 0,
-      title: Row(
+    return Padding(
+      padding: EdgeInsets.only(
+        top: MediaQuery.of(context).viewPadding.top + 8.0,
+        bottom: 8.0,
+        left: 16.0,
+        right: 16.0,
+      ),
+      child: Row(
         children: [
           Expanded(
             child: _SearchBar(
@@ -78,6 +80,7 @@ class _SearchBarState extends State<_SearchBar> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Container(
+      height: 80.0,
       decoration: BoxDecoration(
         borderRadius: Dimens.brc48,
         color: Theme.of(context).colorScheme.secondary,

@@ -53,74 +53,81 @@ class HomeBody extends StatelessWidget {
         },
         child: RefreshIndicator(
           onRefresh: () => getIt<AnimalsCubit>().refresh(),
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                ResponsiveGridList(
-                  horizontalGridSpacing: 16,
-                  verticalGridSpacing: 16,
-                  // horizontalGridMargin: 50,
-                  // verticalGridMargin: 50,
-                  minItemWidth: 200,
-                  minItemsPerRow: 2,
-                  maxItemsPerRow: 5,
-                  listViewBuilderOptions: ListViewBuilderOptions(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.zero,
-                    physics: const NeverScrollableScrollPhysics(),
-                  ),
-                  children: List.generate(
-                    animals.length,
-                    (index) => AnimationConfiguration.staggeredList(
-                      position: index,
-                      duration: const Duration(milliseconds: 375),
-                      child: SlideAnimation(
-                        verticalOffset: 50.0,
-                        child: FadeInAnimation(
-                          child: SizedBox(
-                            height: 300.0,
-                            child: AnimalCard(
-                              id: animals[index].id!.toString(),
-                              image: animals[index].getMediumImage,
-                              isAdopted: animals[index].isAdopted,
-                              adoptStatus: animals[index].adoptStatus,
-                              name: animals[index].name!,
-                              breeds: animals[index].breeds!.primary!,
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        DetailsPage(animal: animals[index]),
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      ResponsiveGridList(
+                        horizontalGridSpacing: 16,
+                        verticalGridSpacing: 16,
+                        // horizontalGridMargin: 50,
+                        // verticalGridMargin: 50,
+                        minItemWidth: 200,
+                        minItemsPerRow: 2,
+                        maxItemsPerRow: 5,
+                        listViewBuilderOptions: ListViewBuilderOptions(
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          physics: const NeverScrollableScrollPhysics(),
+                        ),
+                        children: List.generate(
+                          animals.length,
+                          (index) => AnimationConfiguration.staggeredList(
+                            position: index,
+                            duration: const Duration(milliseconds: 375),
+                            child: SlideAnimation(
+                              verticalOffset: 50.0,
+                              child: FadeInAnimation(
+                                child: SizedBox(
+                                  height: 300.0,
+                                  child: AnimalCard(
+                                    id: animals[index].id!.toString(),
+                                    image: animals[index].getMediumImage,
+                                    isAdopted: animals[index].isAdopted,
+                                    adoptStatus: animals[index].adoptStatus,
+                                    name: animals[index].name!,
+                                    breeds: animals[index].breeds!.primary!,
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => DetailsPage(
+                                              animal: animals[index]),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                );
-                              },
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
+                      if (hasMore)
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          height: 100.0,
+                          child: Center(
+                            child: ClipRRect(
+                              borderRadius: Dimens.brc48,
+                              child: LinearProgressIndicator(
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .primary
+                                    .withOpacity(0.4),
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                 ),
-                if (hasMore)
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: 100.0,
-                    child: Center(
-                      child: ClipRRect(
-                        borderRadius: Dimens.brc48,
-                        child: LinearProgressIndicator(
-                          backgroundColor: Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withOpacity(0.4),
-                        ),
-                      ),
-                    ),
-                  ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

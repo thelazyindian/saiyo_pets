@@ -31,8 +31,7 @@ class _HomeViewState extends State<HomeView> {
       bloc: getIt<AnimalsCubit>(),
       builder: (context, state) {
         return AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle(
-            statusBarColor: colorScheme.background,
+          value: SystemUiOverlayStyle.dark.copyWith(
             systemNavigationBarColor: colorScheme.background,
           ),
           child: Scaffold(

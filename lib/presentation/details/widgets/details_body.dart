@@ -67,7 +67,11 @@ class DetailsBody extends StatelessWidget {
                     placeholder: (context, url) => CachedNetworkImage(
                       imageUrl: mediumImage,
                       fit: BoxFit.cover,
+                      errorWidget: (context, url, error) =>
+                          const ImageErrorView(),
                     ),
+                    errorWidget: (context, url, error) =>
+                        const ImageErrorView(),
                   ),
                 ),
               ),
@@ -358,6 +362,25 @@ class _TagItem extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ImageErrorView extends StatelessWidget {
+  const ImageErrorView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.outline,
+      ),
+      child: Icon(
+        EvaIcons.videoOffOutline,
+        color: Theme.of(context).colorScheme.primary.withOpacity(0.35),
+        size: 120.0,
       ),
     );
   }

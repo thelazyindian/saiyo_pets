@@ -11,6 +11,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: AppStrings.appName,
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme:
             GoogleFonts.latoTextTheme(Theme.of(context).textTheme).copyWith(

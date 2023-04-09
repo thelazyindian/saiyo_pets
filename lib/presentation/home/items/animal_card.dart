@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:saiyo_pets/constants/dimens.dart';
 import 'package:saiyo_pets/presentation/common/widgets/favourite_icon.dart';
@@ -77,21 +78,42 @@ class _AnimalImage extends StatelessWidget {
       children: [
         Hero(
           tag: id,
-          child: Container(
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.outline,
-              borderRadius: const BorderRadius.only(
-                topLeft: Dimens.rc16,
-                topRight: Dimens.rc16,
-              ),
-              image: DecorationImage(
-                image: CachedNetworkImageProvider(
-                  image,
+          child: CachedNetworkImage(
+            imageUrl: image,
+            errorWidget: (context, url, error) {
+              return Container(
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.outline,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Dimens.rc16,
+                    topRight: Dimens.rc16,
+                  ),
                 ),
-                fit: BoxFit.cover,
-              ),
-            ),
+                child: Icon(
+                  EvaIcons.videoOffOutline,
+                  color:
+                      Theme.of(context).colorScheme.primary.withOpacity(0.35),
+                  size: 60.0,
+                ),
+              );
+            },
+            imageBuilder: (context, imageProvider) {
+              return Container(
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.outline,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Dimens.rc16,
+                    topRight: Dimens.rc16,
+                  ),
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              );
+            },
           ),
         ),
         Positioned(

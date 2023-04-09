@@ -53,8 +53,8 @@ class _DetailsViewState extends State<DetailsView> {
             state.animals.where((e) => e.id == widget.animal.id).first;
 
         return AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle(
-            statusBarColor: colorScheme.background,
+          value: SystemUiOverlayStyle.dark.copyWith(
+            statusBarColor: Colors.transparent,
             systemNavigationBarColor: colorScheme.primary,
           ),
           child: Scaffold(

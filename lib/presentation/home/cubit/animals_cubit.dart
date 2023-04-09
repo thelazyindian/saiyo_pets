@@ -55,6 +55,7 @@ class AnimalsCubit extends Cubit<AnimalsState> {
 
   void cancelSearch() {
     _debouncer?.cancel();
+    currentPage = 1;
     started();
   }
 
