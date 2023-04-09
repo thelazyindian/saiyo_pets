@@ -43,16 +43,16 @@ class HomeBody extends StatelessWidget {
     }
 
     return AnimationLimiter(
-      child: RefreshIndicator(
-        onRefresh: () => getIt<AnimalsCubit>().refresh(),
-        child: NotificationListener<ScrollEndNotification>(
-          onNotification: (notification) {
-            if (notification.metrics.pixels ==
-                notification.metrics.maxScrollExtent) {
-              getIt<AnimalsCubit>().loadMore();
-            }
-            return true;
-          },
+      child: NotificationListener<ScrollEndNotification>(
+        onNotification: (notification) {
+          if (notification.metrics.pixels ==
+              notification.metrics.maxScrollExtent) {
+            getIt<AnimalsCubit>().loadMore();
+          }
+          return true;
+        },
+        child: RefreshIndicator(
+          onRefresh: () => getIt<AnimalsCubit>().refresh(),
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
             child: Column(
