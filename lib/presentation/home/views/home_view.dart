@@ -36,6 +36,7 @@ class _HomeViewState extends State<HomeView> {
             backgroundColor: colorScheme.background,
             appBar: const HomeAppBar(),
             body: HomeBody(
+              hasMore: state.hasMore,
               hasError: state.hasError,
               isLoading: state.isLoading,
               animals: state.animals,

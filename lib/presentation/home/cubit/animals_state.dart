@@ -5,6 +5,7 @@ class AnimalsState extends Equatable {
     this.isLoading = true,
     this.isLoadingMore = false,
     this.hasError = false,
+    this.hasMore = true,
     this.animals = const [],
     this.adoptedAnimals = const [],
     required this.adoptFailureOrSuccess,
@@ -13,6 +14,7 @@ class AnimalsState extends Equatable {
   final bool isLoading;
   final bool isLoadingMore;
   final bool hasError;
+  final bool hasMore;
   final List<Animal> animals;
   final List<Animal> adoptedAnimals;
   final Option<Either<IFailure, Unit>> adoptFailureOrSuccess;
@@ -24,6 +26,7 @@ class AnimalsState extends Equatable {
         isLoading,
         isLoadingMore,
         hasError,
+        hasMore,
         animals,
         adoptedAnimals,
         adoptFailureOrSuccess,
@@ -33,6 +36,7 @@ class AnimalsState extends Equatable {
     bool? isLoading,
     bool? isLoadingMore,
     bool? hasError,
+    bool? hasMore,
     List<Animal>? animals,
     List<Animal>? adoptedAnimals,
     Option<Either<IFailure, Unit>>? adoptFailureOrSuccess,
@@ -41,6 +45,7 @@ class AnimalsState extends Equatable {
       isLoading: isLoading ?? this.isLoading,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
       hasError: hasError ?? this.hasError,
+      hasMore: hasMore ?? this.hasMore,
       animals: animals ?? this.animals,
       adoptedAnimals: adoptedAnimals ?? this.adoptedAnimals,
       adoptFailureOrSuccess:

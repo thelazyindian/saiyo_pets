@@ -37,18 +37,34 @@ class AnimalsCubit extends Cubit<AnimalsState> {
 
   Future<void> refresh() => _fetchData();
 
-  Future<void> _fetchData() async {
+  Future<void> loadMore() => _fetchData(loadMore: true);
+
+  Future<void> _fetchData({
+    bool loadMore = false,
+  }) async {
     final animalsOption = await getAnimals(GetAnimalsParams(
-      page: currentPage,
+      page: loadMore ? currentPage + 1 : currentPage,
       limit: 50,
     ));
 
     final adoptedAnimalsOption = await getAdoptedAnimals(NoParams());
 
     animalsOption.fold(
-      (error) => emit(state.copyWith(hasError: true)),
+      (error) {
+        if (!loadMore) {
+          emit(state.copyWith(hasError: true));
+        }
+      },
       (animalsResponse) {
-        final animals = animalsResponse.animals ?? [];
+        currentPage = animalsResponse.currentPage ?? 0;
+
+        final List<Animal> animals = loadMore
+            ? [
+                ...List<Animal>.from(state.animals),
+                ...(animalsResponse.animals ?? [])
+              ]
+            : (animalsResponse.animals ?? []);
+
         adoptedAnimalsOption.fold((error) {}, (adoptedAnimals) {
           for (final adopted in adoptedAnimals) {
             final index =
@@ -63,7 +79,9 @@ class AnimalsCubit extends Cubit<AnimalsState> {
 
         emit(state.copyWith(
           hasError: false,
-          animals: animalsResponse.animals,
+          hasMore: (animalsResponse.currentPage ?? 0) <
+              (animalsResponse.totalPages ?? 0),
+          animals: animals,
         ));
       },
     );
@@ -89,6 +107,7 @@ class AnimalsCubit extends Cubit<AnimalsState> {
       final result = await setAdoptedAnimals(SetAdoptedAnimalsParams(
         animal: adoptedAnimal,
       ));
+
       result.fold(
         (error) {
           emit(state.copyWith(adoptFailureOrSuccess: optionOf(left(error))));
@@ -98,6 +117,7 @@ class AnimalsCubit extends Cubit<AnimalsState> {
           final index =
               animals.indexWhere((element) => element.id == adoptedAnimal.id);
           animals[index] = adoptedAnimal;
+
           emit(state.copyWith(
             animals: animals,
             adoptedAnimals: [...state.adoptedAnimals, animal],
