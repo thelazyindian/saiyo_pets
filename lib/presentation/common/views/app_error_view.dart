@@ -21,6 +21,7 @@ class AppErrorView extends StatelessWidget {
           Text(
             message,
             style: TextStyle(
+              fontSize: 18.0,
               color: Theme.of(context).colorScheme.error,
             ),
           ),
@@ -30,9 +31,12 @@ class AppErrorView extends StatelessWidget {
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(context).colorScheme.onPrimary,
               backgroundColor: Theme.of(context).colorScheme.primary,
+              shape: const RoundedRectangleBorder(
+                borderRadius: Dimens.brc48,
+              ),
             ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: Text('Retry'),
             ),
           ),

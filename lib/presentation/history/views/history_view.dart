@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_timeline/flutter_timeline.dart';
 import 'package:flutter_timeline/indicator_position.dart';
 import 'package:saiyo_pets/constants/dimens.dart';
@@ -20,115 +21,119 @@ class HistoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return BlocBuilder<AnimalsCubit, AnimalsState>(
-      bloc: getIt<AnimalsCubit>(),
-      builder: (context, state) {
-        if (state.hasError) {
-          return Center(
-            child: AppErrorView(
-              onRetry: () => getIt<AnimalsCubit>().refresh(),
-            ),
-          );
-        }
-
-        if (state.isLoading) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        if (state.adoptedAnimals.isEmpty) {
-          return const Center(child: AppEmptyView());
-        }
-
-        final groupAnimalsByTime = state.adoptedAnimals
-            .fold<List<GroupAnimals>>([], (previousValue, element) {
-          final timeAgo =
-              timeago.format(DateTime.parse(element.adopter!.adoptedAt!));
-          final idx =
-              previousValue.indexWhere((element) => element.timeAgo == timeAgo);
-          if (idx >= 0) {
-            previousValue[idx].animals.add(element);
-          } else {
-            previousValue
-                .add(GroupAnimals(timeAgo: timeAgo, animals: [element]));
+    return Scaffold(
+      backgroundColor: colorScheme.background,
+      appBar: const HistoryAppBar(),
+      body: BlocBuilder<AnimalsCubit, AnimalsState>(
+        bloc: getIt<AnimalsCubit>(),
+        builder: (context, state) {
+          if (state.hasError) {
+            return Center(
+              child: AppErrorView(
+                onRetry: () => getIt<AnimalsCubit>().refresh(),
+              ),
+            );
           }
-          return previousValue;
-        });
 
-        final List<TimelineEventDisplay> events = List.generate(
-          groupAnimalsByTime.length,
-          (index) => TimelineEventDisplay(
-            anchor: IndicatorPosition.top,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Dimens.h12,
-                Text(
-                  groupAnimalsByTime[index].timeAgo,
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                        color: colorScheme.primary.withOpacity(0.35),
-                        fontWeight: FontWeight.w600,
-                      ),
-                ),
-                Dimens.h16,
-                ...List.generate(
-                  groupAnimalsByTime[index].animals.length,
-                  (animalIndex) => Column(
-                    children: [
-                      _AdoptedListItem(
-                        image: groupAnimalsByTime[index]
-                            .animals[animalIndex]
-                            .getMediumImage,
-                        name: groupAnimalsByTime[index]
-                                .animals[animalIndex]
-                                .name ??
-                            'Unnamed',
-                        age: groupAnimalsByTime[index]
-                            .animals[animalIndex]
-                            .ageInYears,
-                        adopter: 'Adopter: ' +
-                            (groupAnimalsByTime[index]
-                                    .animals[animalIndex]
-                                    .adopter
-                                    ?.name ??
-                                'Unnamed'),
-                        enableDivider:
-                            (groupAnimalsByTime[index].animals.length - 1 !=
-                                animalIndex),
-                      ),
-                    ],
+          if (state.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (state.adoptedAnimals.isEmpty) {
+            return const Center(child: AppEmptyView());
+          }
+
+          final groupAnimalsByTime = state.adoptedAnimals
+              .fold<List<GroupAnimals>>([], (previousValue, element) {
+            final timeAgo =
+                timeago.format(DateTime.parse(element.adopter!.adoptedAt!));
+            final idx = previousValue
+                .indexWhere((element) => element.timeAgo == timeAgo);
+            if (idx >= 0) {
+              previousValue[idx].animals.add(element);
+            } else {
+              previousValue
+                  .add(GroupAnimals(timeAgo: timeAgo, animals: [element]));
+            }
+            return previousValue;
+          });
+
+          final List<TimelineEventDisplay> events = List.generate(
+            groupAnimalsByTime.length,
+            (index) => TimelineEventDisplay(
+              anchor: IndicatorPosition.top,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Dimens.h12,
+                  Text(
+                    groupAnimalsByTime[index].timeAgo,
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          color: colorScheme.primary.withOpacity(0.35),
+                          fontWeight: FontWeight.w600,
+                        ),
                   ),
-                ),
-              ],
-            ),
-            indicator: Container(
-              height: 30.0,
-              width: 30.0,
-              margin: const EdgeInsets.all(8.0),
-              padding: const EdgeInsets.all(4.0),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: colorScheme.background,
-                boxShadow: [
-                  BoxShadow(
-                    color: colorScheme.primary.withOpacity(0.2),
-                    blurRadius: 4.0,
-                    spreadRadius: 2.0,
-                    offset: const Offset(0.0, 2.0),
+                  Dimens.h16,
+                  ...List.generate(
+                    groupAnimalsByTime[index].animals.length,
+                    (animalIndex) => AnimationConfiguration.synchronized(
+                      duration: const Duration(milliseconds: 375),
+                      child: SlideAnimation(
+                        verticalOffset: 50.0,
+                        child: FadeInAnimation(
+                          child: _AdoptedListItem(
+                            image: groupAnimalsByTime[index]
+                                .animals[animalIndex]
+                                .getMediumImage,
+                            name: groupAnimalsByTime[index]
+                                    .animals[animalIndex]
+                                    .name ??
+                                'Unnamed',
+                            age: groupAnimalsByTime[index]
+                                .animals[animalIndex]
+                                .ageInYears,
+                            adopter: 'Adopter: ' +
+                                (groupAnimalsByTime[index]
+                                        .animals[animalIndex]
+                                        .adopter
+                                        ?.name ??
+                                    'Unnamed'),
+                            enableDivider:
+                                (groupAnimalsByTime[index].animals.length - 1 !=
+                                    animalIndex),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
-              child: Image.asset(
-                'assets/images/paws.png',
-                color: colorScheme.primary,
+              indicator: Container(
+                height: 30.0,
+                width: 30.0,
+                margin: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(4.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: colorScheme.background,
+                  boxShadow: [
+                    BoxShadow(
+                      color: colorScheme.primary.withOpacity(0.2),
+                      blurRadius: 4.0,
+                      spreadRadius: 2.0,
+                      offset: const Offset(0.0, 2.0),
+                    ),
+                  ],
+                ),
+                child: Image.asset(
+                  'assets/images/paws.png',
+                  color: colorScheme.primary,
+                ),
               ),
             ),
-          ),
-        );
+          );
 
-        return Scaffold(
-          backgroundColor: colorScheme.background,
-          appBar: const HistoryAppBar(),
-          body: TimelineTheme(
+          return TimelineTheme(
             data: TimelineThemeData(
               gutterSpacing: 24.0,
               lineColor: colorScheme.outline,
@@ -141,9 +146,9 @@ class HistoryView extends StatelessWidget {
               indicatorSize: 42.0,
               events: events,
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
