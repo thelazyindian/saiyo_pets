@@ -144,7 +144,7 @@ class AnimalsCubit extends Cubit<AnimalsState> {
           emit(state.copyWith(
             animals: animals,
             adoptedAnimals: [...state.adoptedAnimals, animal],
-            adoptFailureOrSuccess: optionOf(right(unit)),
+            adoptFailureOrSuccess: optionOf(right(animal.name ?? 'A Cute Pet')),
           ));
         },
       );

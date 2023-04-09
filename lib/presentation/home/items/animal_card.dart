@@ -80,6 +80,7 @@ class _AnimalImage extends StatelessWidget {
           child: Container(
             alignment: Alignment.center,
             decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.outline,
               borderRadius: const BorderRadius.only(
                 topLeft: Dimens.rc16,
                 topRight: Dimens.rc16,

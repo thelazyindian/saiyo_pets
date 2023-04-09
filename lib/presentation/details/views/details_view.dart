@@ -38,10 +38,10 @@ class _DetailsViewState extends State<DetailsView> {
           () => null,
           (fOrS) => fOrS.fold(
             (error) => context.showMsgBar(error.message),
-            (unit) => showDialog(
+            (name) => showDialog(
               context: context,
               builder: (_) {
-                return const AdoptedPopup();
+                return AdoptedPopup(name: name);
               },
             ),
           ),

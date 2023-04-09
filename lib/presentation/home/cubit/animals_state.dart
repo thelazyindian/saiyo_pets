@@ -17,7 +17,7 @@ class AnimalsState extends Equatable {
   final bool hasMore;
   final List<Animal> animals;
   final List<Animal> adoptedAnimals;
-  final Option<Either<IFailure, Unit>> adoptFailureOrSuccess;
+  final Option<Either<IFailure, String>> adoptFailureOrSuccess;
 
   factory AnimalsState.initial() => AnimalsState(adoptFailureOrSuccess: none());
 
@@ -39,7 +39,7 @@ class AnimalsState extends Equatable {
     bool? hasMore,
     List<Animal>? animals,
     List<Animal>? adoptedAnimals,
-    Option<Either<IFailure, Unit>>? adoptFailureOrSuccess,
+    Option<Either<IFailure, String>>? adoptFailureOrSuccess,
   }) {
     return AnimalsState(
       isLoading: isLoading ?? this.isLoading,

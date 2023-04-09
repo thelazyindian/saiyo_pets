@@ -6,7 +6,9 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:saiyo_pets/constants/dimens.dart';
 
 class AdoptedPopup extends StatefulWidget {
-  const AdoptedPopup({super.key});
+  const AdoptedPopup({super.key, required this.name});
+
+  final String name;
 
   @override
   State<AdoptedPopup> createState() => _AdoptedPopupState();
@@ -57,9 +59,9 @@ class _AdoptedPopupState extends State<AdoptedPopup> {
                 alignment: Alignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 100.0),
+                    padding: const EdgeInsets.only(top: 75.0),
                     child: Container(
-                      height: 120.0,
+                      height: 170.0,
                       margin: const EdgeInsets.all(24.0),
                       decoration: BoxDecoration(
                         borderRadius: Dimens.brc24,
@@ -69,8 +71,9 @@ class _AdoptedPopupState extends State<AdoptedPopup> {
                       child: Padding(
                         padding: const EdgeInsets.all(24.0),
                         child: Text(
-                          'You\'ve adopted a pet.',
-                          maxLines: 1,
+                          'You\'ve now adopted\n${widget.name}',
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
                           style: textTheme.headline4!.copyWith(
                             fontWeight: FontWeight.bold,
                             color: colorScheme.onPrimaryContainer,
@@ -81,7 +84,7 @@ class _AdoptedPopupState extends State<AdoptedPopup> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
+                    padding: const EdgeInsets.only(bottom: 75),
                     child: Container(
                       height: 124.0,
                       width: 124.0,
