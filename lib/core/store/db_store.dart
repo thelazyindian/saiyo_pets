@@ -3,19 +3,28 @@ import 'package:injectable/injectable.dart';
 
 abstract class IDbStore {
   Future<void> init();
+
   Future<void> initStore<T>(TypeAdapter<T> adapter);
+
   Future<E?> get<E>({
     required String storeIdentifier,
-    required String key,
+    required int key,
   });
+
+  Future<List<E>> getAll<E>({
+    required String storeIdentifier,
+  });
+
   Future<void> set<E>({
     required String storeIdentifier,
-    required String key,
+    int? key,
     required E value,
   });
+
   Future<void> clear<E>({
     required String storeIdentifier,
   });
+
   Future<void> close();
 }
 
@@ -34,20 +43,28 @@ class DbStore implements IDbStore {
   @override
   Future<E?> get<E>({
     required String storeIdentifier,
-    required String key,
+    required int key,
   }) async {
     final box = await _getBox<E>(storeIdentifier);
     return box.get(key);
   }
 
   @override
+  Future<List<E>> getAll<E>({
+    required String storeIdentifier,
+  }) async {
+    final box = await _getBox<E>(storeIdentifier);
+    return box.values.toList();
+  }
+
+  @override
   Future<void> set<E>({
     required String storeIdentifier,
-    required String key,
+    int? key,
     required E value,
   }) async {
     final box = await _getBox<E>(storeIdentifier);
-    return box.put(key, value);
+    return key == null ? box.add(value) : box.put(key, value);
   }
 
   @override

@@ -83,8 +83,8 @@ class _AdoptedPopupState extends State<AdoptedPopup> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: Container(
-                      height: 100.0,
-                      width: 100.0,
+                      height: 124.0,
+                      width: 124.0,
                       padding: const EdgeInsets.all(8.0),
                       decoration: BoxDecoration(
                         color: colorScheme.background,

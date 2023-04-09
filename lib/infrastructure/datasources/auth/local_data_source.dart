@@ -15,7 +15,7 @@ class LocalDataSource {
   Future<void> setAuthToken({required OauthToken oauthToken}) async {
     await dbStore.set<OauthToken>(
       storeIdentifier: storeIdentifier,
-      key: 'authToken',
+      key: 0,
       value: oauthToken,
     );
   }
@@ -23,7 +23,7 @@ class LocalDataSource {
   Future<OauthToken?> getAuthToken() async {
     return dbStore.get<OauthToken>(
       storeIdentifier: storeIdentifier,
-      key: 'authToken',
+      key: 0,
     );
   }
 }

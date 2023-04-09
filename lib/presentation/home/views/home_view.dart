@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saiyo_pets/core/di/injectable.dart';
-import 'package:saiyo_pets/presentation/home/cubit/home_cubit.dart';
+import 'package:saiyo_pets/presentation/home/cubit/animals_cubit.dart';
 import 'package:saiyo_pets/presentation/home/widgets/home_app_bar.dart';
 import 'package:saiyo_pets/presentation/home/widgets/home_body.dart';
 
@@ -16,7 +16,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
-    getIt<HomeCubit>().started();
+    getIt<AnimalsCubit>().started();
     super.initState();
   }
 
@@ -24,8 +24,8 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return BlocBuilder<HomeCubit, HomeState>(
-      bloc: getIt<HomeCubit>(),
+    return BlocBuilder<AnimalsCubit, AnimalsState>(
+      bloc: getIt<AnimalsCubit>(),
       builder: (context, state) {
         return AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle(

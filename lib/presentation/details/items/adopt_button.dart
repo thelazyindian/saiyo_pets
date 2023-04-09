@@ -3,8 +3,13 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:saiyo_pets/constants/dimens.dart';
 
 class AdoptButton extends StatelessWidget {
-  const AdoptButton({super.key, required this.onTap});
+  const AdoptButton({
+    super.key,
+    required this.isAdopted,
+    required this.onTap,
+  });
 
+  final bool isAdopted;
   final VoidCallback onTap;
 
   @override
@@ -18,16 +23,18 @@ class AdoptButton extends StatelessWidget {
         child: FadeInAnimation(
           duration: const Duration(milliseconds: 475),
           child: TextButton(
-            onPressed: onTap,
+            onPressed: isAdopted ? null : onTap,
             style: TextButton.styleFrom(
-              foregroundColor: colorScheme.onPrimary,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   topLeft: Dimens.rc32,
                   topRight: Dimens.rc32,
                 ),
               ),
+              foregroundColor: colorScheme.onPrimary,
               backgroundColor: colorScheme.primary,
+              disabledBackgroundColor: colorScheme.secondary,
+              disabledForegroundColor: colorScheme.onSecondary,
               textStyle: Theme.of(context).textTheme.button!.copyWith(
                     fontWeight: FontWeight.bold,
                     fontSize: 24.0,
@@ -41,11 +48,13 @@ class AdoptButton extends StatelessWidget {
                   width: 28.0,
                   child: Image.asset(
                     'assets/images/paws.png',
-                    color: colorScheme.onPrimary,
+                    color: isAdopted
+                        ? colorScheme.onSecondary
+                        : colorScheme.onPrimary,
                   ),
                 ),
                 Dimens.w16,
-                const Text('Adopt Me'),
+                Text(isAdopted ? 'Already Adopted' : 'Adopt Me'),
               ],
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:saiyo_pets/infrastructure/dtos/animals_response/attributes.dart';
 
 class Attributes extends Equatable {
   final bool? spayedNeutered;
@@ -14,6 +15,16 @@ class Attributes extends Equatable {
     this.specialNeeds,
     this.shotsCurrent,
   });
+
+  AttributesDto toDto() {
+    return AttributesDto(
+      spayedNeutered: spayedNeutered,
+      houseTrained: houseTrained,
+      declawed: declawed,
+      specialNeeds: specialNeeds,
+      shotsCurrent: shotsCurrent,
+    );
+  }
 
   @override
   List<Object?> get props {

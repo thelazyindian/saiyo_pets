@@ -31,6 +31,7 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   flutter_timeline: ^0.3.0
   confetti: ^0.7.0
+  interactiveviewer_gallery: ^0.6.0
 
 dev_dependencies:
   flutter_test:

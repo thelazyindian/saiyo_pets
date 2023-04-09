@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:saiyo_pets/infrastructure/dtos/animals_response/address.dart';
 
 class Address extends Equatable {
   final String? address1;
@@ -16,6 +17,17 @@ class Address extends Equatable {
     this.postcode,
     this.country,
   });
+
+  AddressDto toDto() {
+    return AddressDto(
+      address1: address1,
+      address2: address2,
+      city: city,
+      state: state,
+      postcode: postcode,
+      country: country,
+    );
+  }
 
   @override
   List<Object?> get props {

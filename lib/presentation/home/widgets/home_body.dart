@@ -6,7 +6,7 @@ import 'package:saiyo_pets/domain/entities/animals/animal.dart';
 import 'package:saiyo_pets/presentation/common/views/app_empty_view.dart';
 import 'package:saiyo_pets/presentation/common/views/app_error_view.dart';
 import 'package:saiyo_pets/presentation/details/details_page.dart';
-import 'package:saiyo_pets/presentation/home/cubit/home_cubit.dart';
+import 'package:saiyo_pets/presentation/home/cubit/animals_cubit.dart';
 import 'package:saiyo_pets/presentation/home/items/animal_card.dart';
 
 class HomeBody extends StatelessWidget {
@@ -26,7 +26,7 @@ class HomeBody extends StatelessWidget {
     if (hasError) {
       return Center(
         child: AppErrorView(
-          onRetry: () => getIt<HomeCubit>().refresh(),
+          onRetry: () => getIt<AnimalsCubit>().refresh(),
         ),
       );
     }
@@ -41,7 +41,7 @@ class HomeBody extends StatelessWidget {
 
     return AnimationLimiter(
       child: RefreshIndicator(
-        onRefresh: () => getIt<HomeCubit>().refresh(),
+        onRefresh: () => getIt<AnimalsCubit>().refresh(),
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:saiyo_pets/domain/entities/animals/animal.dart';
@@ -83,6 +85,7 @@ class AnimalDto extends Equatable {
       breeds: breeds?.toDomain(),
       colors: colors?.toDomain(),
       age: age,
+      price: ['100', '150', '500', '1000', '1500'][Random().nextInt(5)],
       gender: gender,
       size: size,
       coat: coat,
