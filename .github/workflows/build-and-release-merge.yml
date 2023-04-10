@@ -18,7 +18,7 @@ jobs:
           cache: true
       - run: flutter --version
       - run: flutter pub get
-      # - run: flutter test
+      - run: flutter test
       - run: flutter build web --release --dart-define="API_KEY=$API_KEY" --dart-define="API_SECRET=$API_SECRET"
         env:
           API_KEY: ${{ secrets.API_KEY }}
